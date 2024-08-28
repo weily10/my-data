@@ -19,14 +19,6 @@ modulesArray.value = [{
     name: 'module1', items1: [{ chinesename: '姓名', agency: '內政部', name: 'Name' },
     { chinesename: '國民身分證統一編號', agency: '內政部', name: 'ID' },
     { chinesename: '戶籍地址', agency: '內政部', name: 'Addr' }], items2: []
-}, {
-    name: 'module2', items1: [{ chinesename: '姓名', agency: '內政部', name: 'Name' },
-    { chinesename: '國民身分證統一編號', agency: '內政部', name: 'ID' },
-    { chinesename: '戶籍地址', agency: '內政部', name: 'Addr' }], items2: []
-}, {
-    name: 'module3', items1: [{ chinesename: '姓名', agency: '內政部', name: 'Name' },
-    { chinesename: '國民身分證統一編號', agency: '內政部', name: 'ID' },
-    { chinesename: '戶籍地址', agency: '內政部', name: 'Addr' }], items2: []
 }]
 
 function handleClick(rowIndex, moduleIndex) {
@@ -38,9 +30,9 @@ function handleClick(rowIndex, moduleIndex) {
     } else {
         modulesArray.value[moduleIndex].highlightedRow.add(rowIndex)
 
-        const exist = modulesArray.value[moduleIndex].tempArray.some(item => item.name == modulesArray.value[moduleIndex].items1.value[rowIndex].name)
-         if (!exist) {
-            modulesArray.value[moduleIndex].tempArray.value.push(items1.value[rowIndex])
+        const exist = modulesArray.value[moduleIndex].tempArray.some(item => item.name == modulesArray.value[moduleIndex].items1[rowIndex].name)
+        if (!exist) {
+            modulesArray.value[moduleIndex].tempArray.push(modulesArray.value[moduleIndex].items1[rowIndex])
         }
 
     }
@@ -49,19 +41,18 @@ function handleClick(rowIndex, moduleIndex) {
 
 function handleClick2(rowIndex, moduleIndex) {
 
-    if (highlightedRow2.value.has(rowIndex)) {
-        highlightedRow2.value.delete(rowIndex)
+    if (modulesArray.value[moduleIndex].highlightedRow2.has(rowIndex)) {
+        modulesArray.value[moduleIndex].highlightedRow2.delete(rowIndex)
 
-        tempArray.value.splice(rowIndex, 1)
+        modulesArray.value[moduleIndex].tempArray.splice(rowIndex, 1)
 
 
     } else {
-        console.log(items2.value[rowIndex].name);
-        highlightedRow2.value.add(rowIndex)
+        modulesArray.value[moduleIndex].highlightedRow2.add(rowIndex)
 
-        const exist = tempArray2.value.some(item => item.name == items2.value[rowIndex].name)
+        const exist = modulesArray.value[moduleIndex].tempArray2.some(item => item.name == modulesArray.value[moduleIndex].items2[rowIndex].name)
         if (!exist) {
-            tempArray2.value.push(items2.value[rowIndex])
+            modulesArray.value[moduleIndex].tempArray2.push(modulesArray.value[moduleIndex].items2[rowIndex])
         }
 
     }
@@ -71,12 +62,11 @@ function handleClick2(rowIndex, moduleIndex) {
 
 
 function isHighlighted2(rowIndex, moduleIndex) {
-    return highlightedRow2.value.has(rowIndex)
+    return modulesArray.value[moduleIndex].highlightedRow2.has(rowIndex)
 
 }
 
 function isHighlighted(rowIndex, moduleIndex) {
-    console.log(modulesArray.value[moduleIndex].highlightedRow);
     if (modulesArray.value[moduleIndex].highlightedRow) {
         return modulesArray.value[moduleIndex].highlightedRow.has(rowIndex)
     }
@@ -84,21 +74,36 @@ function isHighlighted(rowIndex, moduleIndex) {
 }
 
 function toUsed(moduleIndex) {
-    items2.value.push(...tempArray.value)
-    items1.value = items1.value.filter(item => !isInArray(item, tempArray));
-    tempArray.value = []
-    highlightedRow.value = new Set()
+    modulesArray.value[moduleIndex].items2.push(...modulesArray.value[moduleIndex].tempArray)
+    modulesArray.value[moduleIndex].items1 = modulesArray.value[moduleIndex].items1.filter(item => !isInArray(item, modulesArray.value[moduleIndex].tempArray));
+    modulesArray.value[moduleIndex].tempArray = []
+    modulesArray.value[moduleIndex].highlightedRow = new Set()
 }
 
 function removeUsed(moduleIndex) {
-    items1.value.push(...tempArray2.value)
-    items2.value = items2.value.filter(item => !isInArray(item, tempArray2));
-    tempArray2.value = []
-    highlightedRow2.value = new Set()
+    modulesArray.value[moduleIndex].items1.push(...modulesArray.value[moduleIndex].tempArray2)
+    modulesArray.value[moduleIndex].items2 = modulesArray.value[moduleIndex].items2.filter(item => !isInArray(item, modulesArray.value[moduleIndex].tempArray2));
+    modulesArray.value[moduleIndex].tempArray2 = []
+    modulesArray.value[moduleIndex].highlightedRow2 = new Set()
 }
 
 function isInArray(item, array) {
-    return array.value.some(element => JSON.stringify(element) === JSON.stringify(item));
+    return array.some(element => JSON.stringify(element) === JSON.stringify(item));
+}
+
+
+function addModule() {
+    modulesArray.value.push(
+        {
+            name: 'module1', items1: [{ chinesename: '姓名', agency: '內政部', name: 'Name' },
+            { chinesename: '國民身分證統一編號', agency: '內政部', name: 'ID' },
+            { chinesename: '戶籍地址', agency: '內政部', name: 'Addr' }], items2: []
+        }
+    )
+    modulesArray.value.map(o => o.highlightedRow = new Set())
+    modulesArray.value.map(o => o.highlightedRow2 = new Set())
+    modulesArray.value.map(o => o.tempArray = [])
+    modulesArray.value.map(o => o.tempArray2 = [])
 }
 
 onMounted(() => {
@@ -164,8 +169,7 @@ onMounted(() => {
                                         <tr @click="handleClick2(index, moduleIndex)"
                                             :class="{ 'highlighted-row': isHighlighted2(index, moduleIndex) }">
                                             <td>
-                                                {{
-                                                    item.chinesename }}
+                                                {{ item.chinesename }}
                                             </td>
                                             <td>{{ item.agency }}</td>
                                             <td>{{ item.name }}</td>
