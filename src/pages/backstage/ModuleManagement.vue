@@ -162,14 +162,20 @@ onMounted(() => {
                             </div>
                             <div class="d-flex flex-column justify-content-center gap-3">
                                 <button class="btn bg-primary text-white" style="width: 5rem; "
+                                    :disabled="modulesArray[moduleIndex].items1.length <= 0"
                                     @click="toUsedAll(moduleIndex)"> <i class="bi bi-chevron-double-right"></i> </button>
                                 <button class="btn bg-primary text-white" style="width: 5rem; "
-                                    @click="toUsed(moduleIndex)"> <i class="bi bi-arrow-right"></i> </button>
+                                    :disabled="modulesArray[moduleIndex].items1.length <= 0" @click="toUsed(moduleIndex)">
+                                    <i class="bi bi-arrow-right"></i> </button>
                                 <button class="btn bg-primary text-white" style="width: 5rem;"
-                                    @click="removeUsed(moduleIndex)"> <i class="bi bi-arrow-left"></i>
+                                    @click="removeUsed(moduleIndex)"
+                                    :disabled="modulesArray[moduleIndex].items2.length <= 0"> <i
+                                        class="bi bi-arrow-left"></i>
                                 </button>
                                 <button class="btn bg-primary text-white" style="width: 5rem; "
-                                    @click="removeUsedAll(moduleIndex)"> <i class="bi bi-chevron-double-left"></i> </button>
+                                    @click="removeUsedAll(moduleIndex)"
+                                    :disabled="modulesArray[moduleIndex].items2.length <= 0"> <i
+                                        class="bi bi-chevron-double-left"></i> </button>
                             </div>
                             <div class="border  w-100">
                                 <table class="table  table-borderless">
@@ -194,7 +200,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <hr v-show="modulesArray.length !== moduleIndex + 1" class="mt-4">
                 </template>
             </div>
         </div>
@@ -219,5 +225,4 @@ td {
 .highlighted-row {
     background-color: #201717;
     /* Light gray background */
-}
-</style>
+}</style>
