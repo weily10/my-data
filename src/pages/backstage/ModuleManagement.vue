@@ -40,16 +40,12 @@ function handleClick(rowIndex, moduleIndex) {
 }
 
 function handleClick2(rowIndex, moduleIndex) {
-
     if (modulesArray.value[moduleIndex].highlightedRow2.has(rowIndex)) {
         modulesArray.value[moduleIndex].highlightedRow2.delete(rowIndex)
-
         modulesArray.value[moduleIndex].tempArray.splice(rowIndex, 1)
-
 
     } else {
         modulesArray.value[moduleIndex].highlightedRow2.add(rowIndex)
-
         const exist = modulesArray.value[moduleIndex].tempArray2.some(item => item.name == modulesArray.value[moduleIndex].items2[rowIndex].name)
         if (!exist) {
             modulesArray.value[moduleIndex].tempArray2.push(modulesArray.value[moduleIndex].items2[rowIndex])
@@ -80,9 +76,24 @@ function toUsed(moduleIndex) {
     modulesArray.value[moduleIndex].highlightedRow = new Set()
 }
 
+function toUsedAll(moduleIndex) {
+    console.log(...modulesArray.value[moduleIndex].items1);
+    modulesArray.value[moduleIndex].items2.push(...modulesArray.value[moduleIndex].items1)
+    modulesArray.value[moduleIndex].items1 = []
+    modulesArray.value[moduleIndex].tempArray = []
+    modulesArray.value[moduleIndex].highlightedRow = new Set()
+}
+
 function removeUsed(moduleIndex) {
     modulesArray.value[moduleIndex].items1.push(...modulesArray.value[moduleIndex].tempArray2)
     modulesArray.value[moduleIndex].items2 = modulesArray.value[moduleIndex].items2.filter(item => !isInArray(item, modulesArray.value[moduleIndex].tempArray2));
+    modulesArray.value[moduleIndex].tempArray2 = []
+    modulesArray.value[moduleIndex].highlightedRow2 = new Set()
+}
+
+function removeUsedAll(moduleIndex) {
+    modulesArray.value[moduleIndex].items1.push(...modulesArray.value[moduleIndex].items2)
+    modulesArray.value[moduleIndex].items2 = []
     modulesArray.value[moduleIndex].tempArray2 = []
     modulesArray.value[moduleIndex].highlightedRow2 = new Set()
 }
@@ -151,10 +162,14 @@ onMounted(() => {
                             </div>
                             <div class="d-flex flex-column justify-content-center gap-3">
                                 <button class="btn bg-primary text-white" style="width: 5rem; "
+                                    @click="toUsedAll(moduleIndex)"> <i class="bi bi-chevron-double-right"></i> </button>
+                                <button class="btn bg-primary text-white" style="width: 5rem; "
                                     @click="toUsed(moduleIndex)"> <i class="bi bi-arrow-right"></i> </button>
                                 <button class="btn bg-primary text-white" style="width: 5rem;"
                                     @click="removeUsed(moduleIndex)"> <i class="bi bi-arrow-left"></i>
                                 </button>
+                                <button class="btn bg-primary text-white" style="width: 5rem; "
+                                    @click="removeUsedAll(moduleIndex)"> <i class="bi bi-chevron-double-left"></i> </button>
                             </div>
                             <div class="border  w-100">
                                 <table class="table  table-borderless">
@@ -181,7 +196,6 @@ onMounted(() => {
                     </div>
                     <hr>
                 </template>
-
             </div>
         </div>
     </div>
