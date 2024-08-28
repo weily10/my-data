@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const items1 = ref([])
 const items2 = ref([])
 const highlightedRow = ref(new Set())
@@ -29,26 +29,25 @@ modulesArray.value = [{
     { chinesename: '戶籍地址', agency: '內政部', name: 'Addr' }], items2: []
 }]
 
-function handleClick(rowIndex) {
-    if (highlightedRow.value.has(rowIndex)) {
-        highlightedRow.value.delete(rowIndex)
-        tempArray.value.splice(rowIndex, 1)
+function handleClick(rowIndex, moduleIndex) {
+    console.log(modulesArray.value[moduleIndex].highlightedRow.has(rowIndex));
+    if (modulesArray.value[moduleIndex].highlightedRow.has(rowIndex)) {
+        modulesArray.value[moduleIndex].highlightedRow.delete(rowIndex)
+        modulesArray.value[moduleIndex].tempArray.splice(rowIndex, 1)
 
     } else {
-        console.log(items1.value[rowIndex].name);
-        highlightedRow.value.add(rowIndex)
+        modulesArray.value[moduleIndex].highlightedRow.add(rowIndex)
 
-        const exist = tempArray.value.some(item => item.name == items1.value[rowIndex].name)
-        console.log(exist);
-        if (!exist) {
-            tempArray.value.push(items1.value[rowIndex])
+        const exist = modulesArray.value[moduleIndex].tempArray.some(item => item.name == modulesArray.value[moduleIndex].items1.value[rowIndex].name)
+         if (!exist) {
+            modulesArray.value[moduleIndex].tempArray.value.push(items1.value[rowIndex])
         }
 
     }
 
 }
 
-function handleClick2(rowIndex) {
+function handleClick2(rowIndex, moduleIndex) {
 
     if (highlightedRow2.value.has(rowIndex)) {
         highlightedRow2.value.delete(rowIndex)
@@ -71,23 +70,27 @@ function handleClick2(rowIndex) {
 
 
 
-function isHighlighted2(rowIndex) {
+function isHighlighted2(rowIndex, moduleIndex) {
     return highlightedRow2.value.has(rowIndex)
 
 }
 
-function isHighlighted(rowIndex) {
-    return highlightedRow.value.has(rowIndex)
+function isHighlighted(rowIndex, moduleIndex) {
+    console.log(modulesArray.value[moduleIndex].highlightedRow);
+    if (modulesArray.value[moduleIndex].highlightedRow) {
+        return modulesArray.value[moduleIndex].highlightedRow.has(rowIndex)
+    }
+
 }
 
-function toUsed() {
+function toUsed(moduleIndex) {
     items2.value.push(...tempArray.value)
     items1.value = items1.value.filter(item => !isInArray(item, tempArray));
     tempArray.value = []
     highlightedRow.value = new Set()
 }
 
-function removeUsed() {
+function removeUsed(moduleIndex) {
     items1.value.push(...tempArray2.value)
     items2.value = items2.value.filter(item => !isInArray(item, tempArray2));
     tempArray2.value = []
@@ -97,6 +100,14 @@ function removeUsed() {
 function isInArray(item, array) {
     return array.value.some(element => JSON.stringify(element) === JSON.stringify(item));
 }
+
+onMounted(() => {
+    modulesArray.value.map(o => o.highlightedRow = new Set())
+    modulesArray.value.map(o => o.highlightedRow2 = new Set())
+    modulesArray.value.map(o => o.tempArray = [])
+    modulesArray.value.map(o => o.tempArray2 = [])
+    console.log(modulesArray);
+})
 
 
 
@@ -109,7 +120,7 @@ function isInArray(item, array) {
                 <div class="d-flex justify-content-between ">
                     <h4>常用欄位模組</h4> <button class="btn bg-primary text-white" @click="addModule()">新增模組</button>
                 </div>
-                <template v-for="(module, index) in modulesArray" :key="'module'+index">
+                <template v-for="(moduleItem, moduleIndex) in modulesArray" :key="'module'+moduleIndex">
                     <div class="card border-0   p-0 mt-4">
                         <div class="d-flex gap-3">
                             <div class="border  w-100" style="height: 16rem;">
@@ -121,9 +132,9 @@ function isInArray(item, array) {
                                             <th>欄位名稱</th>
                                         </tr>
                                     </thead>
-                                    <template v-for="(item, index) in items1" :key="index">
-                                        <tr @click="handleClick(index)"
-                                            :class="{ 'highlighted-row': isHighlighted(index) }">
+                                    <template v-for="(item, index) in moduleItem.items1" :key="index">
+                                        <tr @click="handleClick(index, moduleIndex)"
+                                            :class="{ 'highlighted-row': isHighlighted(index, moduleIndex) }">
                                             <td> {{ item.chinesename }}
                                             </td>
                                             <td>{{ item.agency }}</td>
@@ -134,10 +145,10 @@ function isInArray(item, array) {
                                 </table>
                             </div>
                             <div class="d-flex flex-column justify-content-center gap-3">
-                                <button class="btn bg-primary text-white" style="width: 5rem; " @click="toUsed()"> <i
-                                        class="bi bi-arrow-right"></i> </button>
-                                <button class="btn bg-primary text-white" style="width: 5rem;" @click="removeUsed()"> <i
-                                        class="bi bi-arrow-left"></i>
+                                <button class="btn bg-primary text-white" style="width: 5rem; "
+                                    @click="toUsed(moduleIndex)"> <i class="bi bi-arrow-right"></i> </button>
+                                <button class="btn bg-primary text-white" style="width: 5rem;"
+                                    @click="removeUsed(moduleIndex)"> <i class="bi bi-arrow-left"></i>
                                 </button>
                             </div>
                             <div class="border  w-100">
@@ -149,11 +160,12 @@ function isInArray(item, array) {
                                             <th>欄位名稱</th>
                                         </tr>
                                     </thead>
-                                    <template v-for="(item, index) in items2" :key="index">
-                                        <tr @click="handleClick2(index)"
-                                            :class="{ 'highlighted-row': isHighlighted2(index) }">
-                                            <td> {{
-                                                item.chinesename }}
+                                    <template v-for="(item, index) in moduleItem.items2" :key="index">
+                                        <tr @click="handleClick2(index, moduleIndex)"
+                                            :class="{ 'highlighted-row': isHighlighted2(index, moduleIndex) }">
+                                            <td>
+                                                {{
+                                                    item.chinesename }}
                                             </td>
                                             <td>{{ item.agency }}</td>
                                             <td>{{ item.name }}</td>
