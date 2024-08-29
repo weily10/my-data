@@ -13,7 +13,7 @@ import Authentication from '../pages/citizen/Authentication.vue'
 import ApplianceDone from '../pages/citizen/ApplianceDone.vue'
 import ModuleManagement from '../pages/backstage/ModuleManagement.vue'
 import SPForm from '../pages/sp/Form.vue'
-
+import SPAGreement from '../pages/sp/Agreement.vue'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -89,6 +89,12 @@ const routes = [
         path: "/sp-form",
         name: "SPForm",
         component: SPForm,
+    },
+
+    {
+        path: "/sp-agreement",
+        name: "SPAGreement",
+        component: SPAGreement,
     },
 
     

@@ -5,6 +5,10 @@ function toNextPage() {
     router.push({ name: 'ChooseData' })
 }
 
+function toMydata() {
+    router.push({ name: 'SPAGreement' })
+}
+
 </script>
 
 <template  >
@@ -80,14 +84,37 @@ function toNextPage() {
                 </div>
             </div>
         </div>
-        <div class="mt-3 text-end ">
-            <button class="btn  bg-primary text-white" type="submit" @click="toNextPage()">下一步</button>
+        <div class="mt-3 text-end d-flex gap-3">
+            <button class="btn-success  text-white me-auto" type="submit" @click="toMydata()">使用MyData取得常用欄位資訊</button>
+            <button class="btn-outline" type="submit" @click="toNextPage()">重填</button>
+            <button class="btn-success  text-white" type="submit" @click="toNextPage()">送出申請</button>
         </div>
     </div>
 </template>
 
 
 <style scoped>
+.btn-outline {
+    border: solid 0.8px #239E5B;
+    background-color: white;
+    color: #239E5B;
+}
+
+.btn-outline:hover {
+    background-color: #239E5B;
+    color: white;
+    transition: 0.2s;
+}
+
+.btn-success {
+    background-color: #239E5B;
+}
+
+.btn-success:hover {
+    background-color: #1c7945;
+    transition: 0.2s;
+}
+
 .inputcontainer {
     width: 50%;
     min-width: 200px;
