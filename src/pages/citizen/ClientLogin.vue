@@ -38,11 +38,7 @@ function clientLogin() {
         <div class="d-flex justify-content-center  " >
 
             <div class="">
-                <div class="text-center mt-3">
-                    <button type="button" class="btn">自然人憑證</button>
-                    <button type="button" class="btn">行動自然人憑證</button>
-                </div>
-
+             
                 <div class="card border-0 shadow-sm" style="width:383px;">
                     <div class="card-body">
 

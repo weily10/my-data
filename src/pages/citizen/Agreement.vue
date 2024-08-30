@@ -1,8 +1,8 @@
 <script setup>
 import router from '../../router'
 
-function gotoNextPage(){
-router.push({name:'Authentication'})
+function gotoNextPage() {
+    router.push({ name: 'Authentication' })
 }
 
 </script>
@@ -46,7 +46,7 @@ router.push({name:'Authentication'})
                     府服務 , 建置服務平台 ( 以下簡稱本平臺 ) 提供戶籍資料異
                     軌跨機關通報服務作業 。本部像依據下列服務條款提供各
                     項 服務 , 為確保您的權益 , 請詳細閱讀下列服務條款
- 
+
                 </p>
             </div>
             <p class="py-4"> 初次使用本平臺請充分閱讀以下服務條款 ,以保障您的權益與資料安全</p>

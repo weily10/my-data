@@ -2,8 +2,7 @@
 import router from '../../router'
 
 function toNextPage() {
-    router.push({ name: 'ChooseData' })
-}
+ }
 
 function toMydata() {
     router.push({ name: 'SPAGreement' })
@@ -86,8 +85,8 @@ function toMydata() {
         </div>
         <div class="mt-3 text-end d-flex gap-3">
             <button class="btn-success  text-white me-auto" type="submit" @click="toMydata()">使用MyData取得常用欄位資訊</button>
-            <button class="btn-outline" type="submit" @click="toNextPage()">重填</button>
-            <button class="btn-success  text-white" type="submit" @click="toNextPage()">送出申請</button>
+            <button class="btn-outline" type="submit" @click="clear()">重填</button>
+            <button class="btn-success  text-white" type="submit" @click="send()">送出申請</button>
         </div>
     </div>
 </template>

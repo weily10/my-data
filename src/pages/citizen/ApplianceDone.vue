@@ -20,7 +20,7 @@ function disagreeProvide() {
     <div class="container">
         <div class="step-bar w-100">
             <div class="bar d-flex py-3">
-                <div class="bar0 item mx-auto d-lg-flex flex-lg-culumn align-items-center justify-content-center">
+                <div class="bar0 item mx-auto d-lg-flex   align-items-center justify-content-center">
                     <div class="mx-auto done rounded-circle d-flex justify-content-center align-items-center ">
                         <i class="bi bi-check2"></i>
                     </div>

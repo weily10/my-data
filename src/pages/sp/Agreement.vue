@@ -1,8 +1,10 @@
 <script setup>
 import router from '../../router'
+ 
 
-function toNextPage() {
-    router.push({ name: 'ChooseData' })
+
+function agreeNext(){
+    router.push({ name: 'SPMyData' })
 }
 
 </script>
@@ -47,8 +49,8 @@ function toNextPage() {
 
         </div>
         <div class="mt-3 text-end d-flex gap-3 justify-content-center">
-             <button class="btn bg-gray" type="submit" @click="toNextPage()">不同意</button>
-            <button class="btn bg-yellow  " type="submit" @click="toNextPage()">同意 , 下一步</button>
+             <button class="btn bg-gray" type="submit" @click="dontagree()">不同意</button>
+            <button class="btn bg-yellow  " type="submit" @click="agreeNext()">同意 , 下一步</button>
         </div>
     </div>
 </template>
