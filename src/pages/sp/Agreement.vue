@@ -4,7 +4,7 @@ import router from '../../router'
 
 
 function agreeNext(){
-    router.push({ name: 'SPMyData' })
+    router.push({ name: 'SPForm' })
 }
 
 </script>

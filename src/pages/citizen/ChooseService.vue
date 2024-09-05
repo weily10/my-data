@@ -3,7 +3,7 @@ import router from "../../router"
 </script>
 
 <template>
-   <div class=" custom-container mx-auto">
+   <div class="custom-container mx-auto">
       <div class=" ">
          <p class="danger text-danger  ">模擬受理異動機關畫面</p>
       </div>

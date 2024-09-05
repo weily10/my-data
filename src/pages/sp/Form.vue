@@ -2,21 +2,24 @@
 import router from '../../router'
 
 function toNextPage() {
- }
-
-function toMydata() {
-    router.push({ name: 'SPAGreement' })
 }
 
+function toMydata() {
+    router.push({ name: 'SPMyData' })
+}
 </script>
 
-<template  >
+<template>
     <div class="container">
 
         <h1 class="text-center">發展遲緩兒童療育補助</h1>
         <div class="border mt-3  ">
-            <div class="title-wrapper p-2">
+            <div class="title-wrapper p-3 d-flex justify-content-between align-items-center">
                 <h5 class="mb-1">申請人/代理人基本資料</h5>
+                <div class="d-flex justify-content-end">
+                    <button class="btn-success  text-white me-auto" type="submit"
+                        @click="toMydata()">使用MyData取得常用欄位資訊</button>
+                </div>
             </div>
             <div class="p-4">
                 <div class="mb-3 inputcontainer flex-fill">
@@ -83,8 +86,8 @@ function toMydata() {
                 </div>
             </div>
         </div>
-        <div class="mt-3 text-end d-flex gap-3">
-            <button class="btn-success  text-white me-auto" type="submit" @click="toMydata()">使用MyData取得常用欄位資訊</button>
+        <div class="mt-3 d-flex justify-content-end text-end d-flex gap-3">
+
             <button class="btn-outline" type="submit" @click="clear()">重填</button>
             <button class="btn-success  text-white" type="submit" @click="send()">送出申請</button>
         </div>
@@ -120,6 +123,7 @@ function toMydata() {
 }
 
 .title-wrapper {
+
     background-color: #DEF3FF;
     color: #337AB7;
 }

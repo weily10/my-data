@@ -35,7 +35,7 @@ function clientLogin() {
     <p class="danger text-danger  text-simulation">模擬受理異動機關畫面</p>
     <div class=" d-flex flex-column justify-content-center " style="height: 80vh;">
         <h2 class="card-title text-center">身分確認方式</h2>
-        <div class="d-flex justify-content-center  " >
+        <div class="d-flex justify-content-center mt-3" >
 
             <div class="">
              

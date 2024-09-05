@@ -69,7 +69,7 @@ const items = ref([
     }])
 
 function useMydata() {
-    router.push({name:'Agreement'})
+    router.push({name:'MyData'})
 }
 
 </script>

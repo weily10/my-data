@@ -5,10 +5,10 @@ import router from '../../router';
 const list = ref([])
 
 list.value = [{
-    agency: [{ name: "內政部", status: '申請中', provideinfo: [{ name: '姓名' }, { name: '戶籍地址' }] }, { name: '自來水', status: '未能完成，請洽該單位洽詢', provideinfo: [{ name: '國民身分證統一編號' }, { name: '戶籍地址' }] }],
+    agency: [{ name: "內政部", status: '申請中', provideinfo: [{ name: '姓名' }, { name: '戶籍地址' }] },
+    { name: '自來水', status: '未能完成，請洽該單位洽詢', provideinfo: [{ name: '國民身分證統一編號' }, { name: '戶籍地址' }] }],
     notifyTime: '2024-7-01 10:00:00',
-}
-]
+}]
 
 
 function goToDetail() {

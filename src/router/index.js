@@ -1,20 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../pages/backstage/Login.vue'
-import Dashboard from '../pages/backstage/Dashboard.vue'
-import SearchStatus from '../pages/backstage/SearchStatus.vue'
+ import SearchStatus from '../pages/backstage/SearchStatus.vue'
 import DetailPage from '../pages/backstage/DetailPage.vue'
 import ChoosenService from '../pages/citizen/ChooseService.vue'
 import Status from '../pages/citizen/Status.vue'
 import Appliance from '../pages/citizen/Appliance.vue'
 import ClientLogin from '../pages/citizen/ClientLogin.vue'
 import ChooseData from '../pages/citizen/ChooseData.vue'
-import Agreement from '../pages/citizen/Agreement.vue'
-import Authentication from '../pages/citizen/Authentication.vue'
+ import Authentication from '../pages/citizen/Authentication.vue'
 import ApplianceDone from '../pages/citizen/ApplianceDone.vue'
 import ModuleManagement from '../pages/backstage/ModuleManagement.vue'
 import SPForm from '../pages/sp/Form.vue'
-import SPAGreement from '../pages/sp/Agreement.vue'
 import SPMyData from '../pages/sp/MyData.vue'
+import MyData from '../pages/citizen/MyData.vue'
+import SPAGreement from '../pages/sp/Agreement.vue'
 
 
 
@@ -68,12 +67,6 @@ const routes = [
 
     },
     {
-        path: "/agreement",
-        name: "Agreement",
-        component: Agreement,
-
-    },
-    {
         path: "/auth",
         name: "Authentication",
         component: Authentication,
@@ -94,17 +87,21 @@ const routes = [
         name: "SPForm",
         component: SPForm,
     },
-
     {
-        path: "/sp-agreement",
-        name: "SPAGreement",
-        component: SPAGreement,
+        path: "/mydata",
+        name: "MyData",
+        component: MyData,
     },
     {
         path: "/sp-mydata",
         name: "SPMyData",
         component: SPMyData,
     },
+    {
+        path: "/sp-agreement",
+        name: "SPAGreement",
+        component: SPAGreement,
+    }
 
     
     

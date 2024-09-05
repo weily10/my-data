@@ -21,12 +21,11 @@ const username = ref('')
 
 username.value = '王小明'
 
-console.log(isadmin);
-
+ 
 </script>
 
 <template>
-    <div class="d-flex">
+    <div  class="d-flex " style="min-height: 100vh;" :style="router.currentRoute.value.path.includes('/admin')?'background-color:white':'background-color:rgb(250 255 252)'" >
         <div v-if="isadmin">
             <nav class="nav border-end  d-flex   flex-column  p-1">
                 <h4 class="fw-bold p-3 text-white">
@@ -48,9 +47,7 @@ console.log(isadmin);
                                     <RouterLink to="/admin">跨機關異動通知服務查詢</RouterLink>
                                     <RouterLink to="/admin/module-management">常用模組設定</RouterLink>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -74,6 +71,10 @@ console.log(isadmin);
 </template>
 
 <style scoped>
+
+.bg-color{
+    background-color:#f2fdf5 ;
+}
 .header {
     height: 62px;
     background-color: #51A5F3;
