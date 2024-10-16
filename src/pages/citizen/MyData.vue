@@ -23,8 +23,8 @@ function nextComponent() {
 
 
 function agree() {
-    router.push({ name: 'SPForm' })
-}
+ 
+ }
 
 </script>
 

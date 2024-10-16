@@ -1,5 +1,8 @@
 <script setup>
 import router from '../../router'
+import { ref } from 'vue'
+
+const applianceData = ref({})
 
 function toNextPage() {
     router.push({ name: 'ChooseData' })
@@ -15,20 +18,20 @@ function toNextPage() {
                 <h2 class="card-title text-center">資料填寫</h2>
                 <div class="d-flex flex-wrap gap-3 mt-5">
                     <div class="mb-3 inputcontainer flex-fill">
-                        <label for="exampleFormControlInput1" class="form-label">國民身分證統一編號</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <label for="nationalid" class="form-label">國民身分證統一編號</label>
+                        <input class="form-control" id="nationalid" placeholder="" v-model="applianceData.id">
                     </div>
                     <div class="mb-3 inputcontainer flex-fill">
-                        <label for="exampleFormControlInput1" class="form-label">PIN CODE</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <label for="pincode" class="form-label">PIN CODE</label>
+                        <input class="form-control" id="pincode" v-model="applianceData.pincode" placeholder="">
                     </div>
                     <div class="mb-3 inputcontainer flex-fill">
-                        <label for="exampleFormControlInput1" class="form-label">聯絡電話</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <label for="phone" class="form-label">聯絡電話</label>
+                        <input class="form-control" v-model="applianceData.phone" id="phone" placeholder="">
                     </div>
                     <div class="mb-3 inputcontainer flex-fill">
-                        <label for="exampleFormControlInput1" class="form-label">電子郵件</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <label for="email" class="form-label">電子郵件</label>
+                        <input type="email" class="form-control" id="email" placeholder="" v-model="applianceData.email">
                     </div>
                 </div>
 
@@ -36,53 +39,59 @@ function toNextPage() {
                     <p class="fw-bold mt-1"> 戶籍所在地</p>
                     <div class="d-flex gap-3">
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">市</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="city" class="form-label">市</label>
+                            <input class="form-control" id="city" v-model="applianceData.city" placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">市區</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="region" class="form-label">市區</label>
+                            <input class="form-control" id="region" v-model="applianceData.region" placeholder="">
                         </div>
                     </div>
                 </div>
                 <div>
                     <p class="fw-bold mt-1"> 通訊地址</p>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="infoAddrChk"
+                            v-model="applianceData.infoAddrChk">
+                        <label class="form-check-label" for="infoAddrChk">
                             同戶籍地
                         </label>
                     </div>
                     <div class="d-flex gap-3 mt-3">
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">郵編號</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="postNo" class="form-label">郵編號</label>
+                            <input type="email" class="form-control" id="postNo" v-model="applianceData.postNo"
+                                placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">市</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="samecity" class="form-label">市</label>
+                            <input type="email" class="form-control" id="samecity" v-model="applianceData.samecity"
+                                placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">市區</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="sameregion" class="form-label">市區</label>
+                            <input class="form-control" id="sameregion" v-model="applianceData.sameregion" placeholder="">
                         </div>
                     </div>
                     <div class="d-flex gap-3 mt-3">
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">鄉</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="sametownship" class="form-label">鄉</label>
+                            <input class="form-control" id="sametownship" v-model="applianceData.sametownship"
+                                placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">村(里)</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="sameVillage" class="form-label">村(里)</label>
+                            <input class="form-control" id="sameVillage" v-model="applianceData.sameVillage" placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">鄰</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="sameNeighbour" class="form-label">鄰</label>
+                            <input class="form-control" id="sameNeighbour" v-model="applianceData.sameNeighbour"
+                                placeholder="">
                         </div>
                         <div class="mb-3 " style="width: 23.5%;">
-                            <label for="exampleFormControlInput1" class="form-label">街路門牌</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                            <label for="sameStreetNo" class="form-label">街路門牌</label>
+                            <input class="form-control" id="sameStreetNo" v-model="applianceData.sameStreetNo"
+                                placeholder="">
                         </div>
                     </div>
                 </div>

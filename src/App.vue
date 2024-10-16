@@ -11,28 +11,55 @@ const route = useRoute();
 
 
 
-console.log(router.currentRoute.value.path);
 
 const isadmin = computed(() =>
-    router.currentRoute.value.path.includes('/admin')
+    router.currentRoute.value.path.includes('/admin') && !router.currentRoute.value.path.includes('/login')
 )
 
+ 
 const username = ref('')
 
 username.value = '王小明'
 
- 
+
+function setRoleColor() {
+     if (router.currentRoute.value.path.includes('/admin') && !router.currentRoute.value.path.includes('/login')) {
+        return 'background-color:white'
+    }
+
+    if (router.currentRoute.value.meta.role === 'citizen') {
+        return 'background-color:#F8FCF9'
+    }
+
+    if (router.currentRoute.value.meta.role === 'mydata') {
+        console.log('mydata');
+        return 'background-color:#FFFEF5'
+    }
+
+    if (router.currentRoute.value.meta.role === 'sp') {
+        return 'background-color:#FFFAFA'
+    }
+
+    if (router.currentRoute.value.meta.role === 'admin') {
+        return 'background-color:#51A5F3'
+    }
+
+}
+
 </script>
 
 <template>
-    <div  class="d-flex " style="min-height: 100vh;" :style="router.currentRoute.value.path.includes('/admin')?'background-color:white':'background-color:rgb(250 255 252)'" >
+    <div class="d-flex " style="min-height: 100vh;" :style="setRoleColor()">
         <div v-if="isadmin">
             <nav class="nav border-end  d-flex   flex-column  p-1">
                 <h4 class="fw-bold p-3 text-white">
                     系統名稱
                 </h4>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
+                <div class="accordion accordion-flush mt-3" id="accordionFlushExample">
+                    <div class="" v-show="route.meta.role === 'poc1Admin'">
+                        <RouterLink to="/admin/agencyManage">跨機關異動通報</RouterLink>
+                    </div>
+                    <div class="accordion-item" v-show="route.meta.role !== 'poc1Admin'">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed text-white" type="button" data-bs-toggle="collapse"
                                 style="background-color: #434343;" data-bs-target="#flush-collapseOne" aria-expanded="false"
@@ -57,10 +84,18 @@ username.value = '王小明'
             </div>
         </div>
         <div class="w-100  ">
-            <div class="header d-flex justify-content-end align-items-center px-3 text-white" v-if="isadmin">
-                Hi, 聯經數位股份有限公司
-                <div class="p-2">
-                    {{ username }}
+             <div class="header d-flex d-flex justify-content-between  align-items-center px-3 text-white" v-if="isadmin" :style="route.meta.role === 'poc1Admin'?'background-color:#D27E00':''">
+                <div class="text-start fs-5">
+                    <span v-show="route.meta.role === 'poc1Admin'">
+                        模擬受通知機關管理畫面(台灣電力公司)
+                    </span>
+                    <span v-show="route.meta.role === 'admin'">
+                        模擬MyData服務平臺之後臺管理
+                    </span>
+                    
+                </div>
+                <div class="p-2 text-end" v-show="route.meta.role !== 'poc1Admin'">
+                    Hi, 聯經數位股份有限公司 {{ username }}
                 </div>
             </div>
             <div class="p-3">
@@ -71,10 +106,10 @@ username.value = '王小明'
 </template>
 
 <style scoped>
-
-.bg-color{
-    background-color:#f2fdf5 ;
+.bg-color {
+    background-color: #f2fdf5;
 }
+
 .header {
     height: 62px;
     background-color: #51A5F3;

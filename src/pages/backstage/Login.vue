@@ -10,8 +10,8 @@ let errormessage = ref(null)
 
 const url = "/api/Account/login"
 
-async function login() {
-router.push({name:'Dashboard'})
+async function loginToBackend() {
+router.push({name:'SearchStatus'})
 }
 
 onMounted(() => {
@@ -21,11 +21,12 @@ onMounted(() => {
 
 <template>
     <div class="d-flex justify-content-center" style="height: 90vh">
-
+       
         <div class=" d-flex    align-items-center">
+            
             <div class="card border-0 shadow-sm" style="width:383px;  ">
                 <div class="card-body">
-                    <h2 class="card-title">內政部身分驗證</h2>
+                    <h2 class="card-title">MyData平臺後臺</h2>
 
                     <div class="mb-3 mt-4 text-start">
                         <label for="usernameInput" class="form-label ">使用者</label>
@@ -40,7 +41,7 @@ onMounted(() => {
                     <div class="mt-4">
                         <button :disabled="loading || !usernameInput || !passwordInput"
                             class="btn btn-primary w-100 d-flex gap-2 align-items-center justify-content-center"
-                            @click="login">
+                            @click="loginToBackend">
                             <div>登入</div>
 
                             <div v-show="loading" class="spinner-border spinner-border-sm text-light" role="status">

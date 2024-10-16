@@ -19,7 +19,7 @@ function disagreeProvide() {
 <template>
     <div class="w-100">
         <h5 class="fw-bold">
-            請填寫一下資訊
+            請填寫以下資訊
         </h5>
         <div class="mb-3 mt-4 w-50">
             <label for="chineseName" class="form-label">身分證字號 <span class="text-danger">(必填)</span> </label>

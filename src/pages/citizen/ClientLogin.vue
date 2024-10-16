@@ -2,6 +2,7 @@
 import router from '../../router'
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 let usernameInput = ref(null)
 let passwordInput = ref(null)
@@ -24,8 +25,15 @@ onMounted(() => {
 
 
 
+async function clientLogin() {
+//   await axios.post(api.value).then(res => {
+//         customerData.value = res.data
+//         sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
+//         router.push({ name: 'SPForm', query: { filled: true } })
+//      }).catch((err) => {
+//         console.log(err);
+//     })
 
-function clientLogin() {
     router.push({ name: route.query.toPage })
 }
 

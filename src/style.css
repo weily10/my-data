@@ -5,16 +5,16 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
- 
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html{
+html {
   scroll-behavior: smooth;
-  
+
 }
 
 a {
@@ -23,10 +23,10 @@ a {
   text-decoration: inherit;
 }
 
- 
+
 
 body {
-   margin: 0;
+  margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -37,7 +37,7 @@ h1 {
 }
 
 
-h2{
+h2 {
   font-size: x-large;
 }
 
@@ -53,7 +53,7 @@ button {
   transition: border-color 0.25s;
 }
 
- 
+
 
 button:focus,
 button:focus-visible {
@@ -65,9 +65,7 @@ button:focus-visible {
   padding: 2em;
 }
 
-#app {
-  
-}
+#app {}
 
 nav {
   height: 100%;
@@ -97,15 +95,19 @@ nav {
 }
 
 .bg-color {
-  background-color: #dfdfdf ;
+  background-color: #dfdfdf;
 }
 
 .bg-yellow {
   background-color: #ffd154
 }
 
-th{
-  background-color:#f1f5fa !important
+.bg-red {
+  background-color: #F96F6F;
+}
+
+th {
+  background-color: #f1f5fa !important
 }
 
 .text-simulation {
@@ -113,7 +115,7 @@ th{
   left: 40%;
 }
 
-.btn{
+.btn {
   width: 8rem;
 }
 
@@ -121,7 +123,7 @@ th{
   width: 8rem;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #154e80 !important;
 }
 
@@ -129,4 +131,33 @@ th{
   background-color: #cfa532 !important;
 }
 
+.overflow {
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.tooltip {
+  position: relative;
+   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+   padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 30;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

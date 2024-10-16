@@ -3,11 +3,9 @@
 import { ref, onMounted } from 'vue'
 const items1 = ref([])
 const items2 = ref([])
-const highlightedRow = ref(new Set())
-const highlightedRow2 = ref(new Set())
+ 
 const modulesArray = ref([])
-let tempArray = ref([])
-let tempArray2 = ref([])
+ 
 
 items1.value = [{ chinesename: '姓名', agency: '內政部', name: 'Name' },
 { chinesename: '國民身分證統一編號', agency: '內政部', name: 'ID' },
@@ -122,7 +120,6 @@ onMounted(() => {
     modulesArray.value.map(o => o.highlightedRow2 = new Set())
     modulesArray.value.map(o => o.tempArray = [])
     modulesArray.value.map(o => o.tempArray2 = [])
-    console.log(modulesArray);
 })
 
 
@@ -225,4 +222,5 @@ td {
 .highlighted-row {
     background-color: #201717;
     /* Light gray background */
-}</style>
+}
+</style>

@@ -22,7 +22,8 @@ function disagreeProvide() {
 
 <template>
     <div class="w-100">
-        <div class="w-100 bg-white mt-3 p-4 ">
+        <h2 class="text-center">身心障礙停車識別證申請</h2>
+        <div class="w-100 bg-white mt-4 p-4 ">
             <div class="d-flex gap-3  flex-column">
                 <div class="fw-bold">提交申請</div>
                 <div>本次使用的資料如下:</div>

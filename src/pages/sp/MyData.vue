@@ -4,11 +4,13 @@ import router from '../../router'
 import DataEnter from '../components/DataEnter.vue'
 import Auth from '../components/Auth.vue'
 import Done from '../components/Done.vue'
+import axios from 'axios'
 
 const componentsList = shallowRef(DataEnter)
 
 const text = ref([{ name: '常用欄位資訊', detail: '姓名 , 出生日期 , 身分證字號 , 戶籍地址 , 性別' }])
-
+const customerData = ref([])
+const api = ref(null)
 
 function nextComponent() {
 
@@ -23,8 +25,19 @@ function nextComponent() {
 }
 
 
-function agree() {
-    router.push({ name: 'SPForm' })
+
+async function agree() {
+    api.value = 'https://run.mocky.io/v3/e59453a8-2898-4fee-8fe1-48cf5cc79f04'
+    await axios.get(api.value).then(res => {
+        customerData.value = res.data
+        sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
+        router.push({ name: 'SPForm', query: { filled: true } })
+     }).catch((err) => {
+        console.log(err);
+    })
+
+
+
 }
 
 </script>

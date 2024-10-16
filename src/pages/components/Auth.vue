@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>驗證您的身分</h2>
+        <h2 class="text-center">驗證您的身分</h2>
         <div class="w-100">
             <p class="text-start m-0">插卡驗證</p>
         </div>

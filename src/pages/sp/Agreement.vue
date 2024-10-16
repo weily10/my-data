@@ -12,7 +12,7 @@ function agreeNext(){
 <template  >
     <div class="container">
 
-        <h1 class="text-center mt-3">線上申辦同意書</h1>
+        <h1 class="text-center mt-3">身心障礙停車識別證申請 線上申辦同意書</h1>
         <hr class="">
         <div class="mt-3" style="overflow: auto; height:60vh">
             <p>以下說明詳述在使用線上申辦服務時， 您必須瞭解的相關事項，請您詳細閱讀！</p>
@@ -49,20 +49,35 @@ function agreeNext(){
 
         </div>
         <div class="mt-3 text-end d-flex gap-3 justify-content-center">
-             <button class="btn bg-gray" type="submit" @click="dontagree()">不同意</button>
-            <button class="btn bg-yellow  " type="submit" @click="agreeNext()">同意 , 下一步</button>
+             <button class="btn-outline" type="submit" @click="dontagree()">不同意</button>
+            <button class="btn-success text-white  " type="submit" @click="agreeNext()">同意 , 下一步</button>
         </div>
     </div>
 </template>
 
 
 <style scoped>
-.btn:hover {
-    background-color: rgb(168, 146, 23) !important; 
+ 
+
+.btn-success {
+    background-color: #F96F6F;
 }
 
-.bg-gray{
-    background-color: #B9B9B9;
+.btn-success:hover {
+    background-color: #da6363;
+    transition: 0.2s;
+}
+
+.btn-outline {
+    border: solid 0.8px #F96F6F;
+    background-color: white;
+    color: #F96F6F;
+}
+
+.btn-outline:hover {
+    background-color: #F96F6F;
+    color: white;
+    transition: 0.2s;
 }
 
 </style>

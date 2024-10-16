@@ -9,22 +9,6 @@ const items = ref([
             [{
                 value: 'name',
                 text: '姓名'
-            },
-            {
-                value: 'ID',
-                text: '國民身分證統一編號'
-            },
-            {
-                value: 'address',
-                text: '戶籍地址'
-            },
-            {
-                value: 'birthdate',
-                text: '出生年月日'
-            },
-            {
-                value: 'phone',
-                text: '聯絡電話'
             }]
     },
     {
@@ -35,12 +19,8 @@ const items = ref([
                 text: '姓名'
             },
             {
-                value: 'ID',
-                text: '國民身分證統一編號'
-            },
-            {
                 value: 'address',
-                text: '戶籍地址'
+                text: '通訊地址'
             }]
     },
     {
@@ -51,25 +31,13 @@ const items = ref([
                 text: '姓名'
             },
             {
-                value: 'ID',
-                text: '國民身分證統一編號'
-            },
-            {
                 value: 'address',
-                text: '戶籍地址'
-            },
-            {
-                value: 'birthdate',
-                text: '出生年月日'
-            },
-            {
-                value: 'phone',
-                text: '聯絡電話'
+                text: '通訊地址'
             }]
     }])
 
 function useMydata() {
-    router.push({name:'MyData'})
+    router.push({ name: 'MyData' })
 }
 
 </script>
@@ -119,9 +87,7 @@ function useMydata() {
 
                             </td>
                             <td>
-
                             </td>
-
                         </tr>
                     </template>
 

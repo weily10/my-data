@@ -4,20 +4,24 @@ import router from '../../router';
 
 const list = ref([])
 const agencies = ref([])
+const startDate = ref(null)
+const endDate = ref(null)
 
 agencies.value = [{
     agency: '台電',
     status: 'done',
     detail: [{
         statusname: "平臺取得DP異動通知",
-        id: 'Y1…123',
+        number: 'lskddl1991010901901901901901901901',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:00:00',
     },
     {
         statusname: "平臺取得DP異動通知",
-        id: 'Y32…123',
+        number: '232dad32132212323',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:05:00',
     }]
 },
@@ -26,14 +30,16 @@ agencies.value = [{
     status: 'working',
     detail: [{
         statusname: "平臺取得DP異動通知",
-        id: 'Y1…123',
+        number: 'Y3321322123',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:00:00',
     },
     {
         statusname: "平臺取得DP異動通知",
-        id: 'Y32…123',
+        number: 'Y3321322123',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:05:00',
     }]
 },
@@ -42,14 +48,16 @@ agencies.value = [{
     status: 'failed',
     detail: [{
         statusname: "平臺取得DP異動通知",
-        id: 'Y1…123',
+        number: 'Y33213221232133',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:00:00',
     },
     {
         statusname: "平臺取得DP異動通知",
-        id: 'Y32…123',
+        number: 'Y3321322123',
         workstatus: '完成',
+        serviceStatus: '異常',
         time: '2024-7-01 10:05:00',
     }]
 }]
@@ -76,6 +84,10 @@ function convertStatus(word) {
     }
 }
 
+function selectQtd(e) {
+    console.log(e);
+}
+
 </script>
 
 <template>
@@ -84,16 +96,22 @@ function convertStatus(word) {
 
         <div class="border p-3 mt-3">
             <h6 class="fw-bold">查詢條件</h6>
-            <div class="d-flex gap-3 align-items-end justify-content-between">
-                <div class="mt-3 w-100">
-                    <label for="exampleFormControlInput1" class="form-label">身分證統一編號</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="S123143223">
-                </div>
-                <div class="mt-3 w-100">
-                    <label for="exampleFormControlInput1" class="form-label">查詢時間區間</label>
+            <div class="d-flex gap-3 align-items-end  flex-wrap">
+                <div class="mt-3 " style="min-width: 22%;">
+                    <label for="exampleFormControlInput1" class="form-label">申請單號</label>
                     <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
                 </div>
-                <div class="mt-3 w-100">
+                <div class="mt-3" style="min-width: 35%;">
+                    <label for="exampleFormControlInput1" class="form-label">查詢時間區間</label>
+                    <div class="d-flex align-items-center">
+                        <VueDatePicker v-model="startDate" placeholder="初始日期"   text-input
+                            auto-apply :format-locale="zhTW" @cleared="startDateClear"></VueDatePicker>
+                         <span class="px-2">~</span>
+                         <VueDatePicker v-model="endDate" placeholder="結束日期"  text-input
+                            auto-apply :format-locale="zhTW" @cleared="endDateClear"></VueDatePicker>
+                     </div>
+                </div>
+                <div class="mt-3  " style="min-width: 12%;">
                     <label for="exampleFormControlInput1" class="form-label">機關名稱</label>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>台電</option>
@@ -102,7 +120,7 @@ function convertStatus(word) {
                         <option value="3">Three</option>
                     </select>
                 </div>
-                <div class="mt-3 w-100">
+                <div class="mt-3  " style="min-width: 12%;">
                     <label for="exampleFormControlInput1" class="form-label">狀態</label>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>處理中</option>
@@ -122,9 +140,15 @@ function convertStatus(word) {
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ item.agency }}</h4>
                         <div>
-                            <span class="badge"
-                                :class="item.status === 'done' ? 'bg-success' : item.status === 'failed' ? 'bg-danger' : 'bg-warning'">{{
-                                    convertStatus(item.status) }}</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width: 5em;">顯示 </span>
+                                <select class="form-select form-select-sm" name="" id="" @change="selectQtd">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                                <span>筆</span>
+                            </div>
                         </div>
                     </div>
 
@@ -134,8 +158,9 @@ function convertStatus(word) {
                             <thead>
                                 <tr>
                                     <th scope="col">狀態</th>
-                                    <th scope="col" class="text-center">身分證統一編號</th>
+                                    <th scope="col" class="text-center">申請單號</th>
                                     <th scope="col" class="text-center">處理狀態</th>
+                                    <th scope="col" class="text-center">服務狀態</th>
                                     <th class="text-center">時間</th>
                                 </tr>
                             </thead>
@@ -143,10 +168,19 @@ function convertStatus(word) {
                                 <template v-for="(item2, index) in item.detail" :key="index">
                                     <tr>
                                         <td class="align-middle">{{ item2.statusname }}</td>
-                                        <td class="text-center align-middle">{{ item2.id }}</td>
-                                        <td class="text-center align-middle"><span class="badge bg-success">{{
-                                            item2.workstatus
-                                        }}</span></td>
+                                        <td class="text-center align-middle overflow   " width="50px"><span class="overflow ">{{ item2.number}}</span>
+                                         </td>
+                                        <td class="text-center align-middle">
+                                            <span class="badge"
+                                                :class="item2.workstatus === '異常' ? 'bg-danger' : 'bg-success'">{{
+                                                    item2.workstatus
+                                                }}</span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <span class="badge"
+                                                :class="item2.serviceStatus === '異常' ? 'bg-danger' : 'bg-success'"> {{
+                                                    item2.serviceStatus }}</span>
+                                        </td>
                                         <td class="text-center align-middle">
                                             {{ item2.time }}
                                         </td>
@@ -159,7 +193,7 @@ function convertStatus(word) {
                     </div>
                     <div class="d-flex justify-content-between mt-3">
                         <div>
-                            共 {{ list.length }} 筆
+                            共 {{ item.detail.length }} 筆
                         </div>
                         <nav>
                             <ul class="pagination">
@@ -173,8 +207,6 @@ function convertStatus(word) {
                     </div>
                 </div>
             </template>
-
-
         </div>
     </div>
 </template>
@@ -185,4 +217,6 @@ function convertStatus(word) {
     min-height: 30vh;
     padding: 16px;
 }
+
+ 
 </style>
