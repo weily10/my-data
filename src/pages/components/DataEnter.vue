@@ -1,5 +1,10 @@
 <script setup>
 import router from '../../router'
+import { ref } from 'vue'
+
+
+const nationalID = ref('')
+const bday = ref('')
 
 function gotoNextPage() {
     router.push({ name: 'Authentication' })
@@ -22,13 +27,13 @@ function disagreeProvide() {
             請填寫以下資訊
         </h5>
         <div class="mb-3 mt-4 w-50">
-            <label for="chineseName" class="form-label">身分證字號 <span class="text-danger">(必填)</span> </label>
-            <input type="email" class="form-control" id="chineseName" placeholder="英文字母為大寫">
+            <label for="nationalID" class="form-label">身分證字號 <span class="text-danger">(必填)</span> </label>
+            <input type="email" class="form-control" id="nationalID" placeholder="英文字母為大寫" v-model="nationalID">
         </div>
 
         <div class="mb-3 mt-3 w-50">
-            <label for="chineseName" class="form-label"> 生日<span class="text-danger">(必填)</span></label>
-            <input type="email" class="form-control" id="chineseName" placeholder="列: 0770101">
+            <label for="bday" class="form-label"> 生日<span class="text-danger">(必填)</span></label>
+            <input  class="form-control" id="bday" placeholder="列: 0770101" v-model="bday">
         </div>
 
     </div>
