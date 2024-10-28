@@ -161,3 +161,11 @@ th {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.circle2 {
+  border-radius: 100%;
+  background-color: #ffd154;
+  height: 20px;
+  width: 20px;
+
+}

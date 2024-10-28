@@ -23,7 +23,7 @@
                 <p>請插入您的自然人憑證，查看 憑證IC卡詳細說明</p>
             </div>
             <div class="d-flex gap-2 align-items-top">
-                <div class="circle2 d-flex justify-content-center align-items-center "><i class="bi bi-check"></i></div>
+                <div class="circle2 d-flex justify-content-center   "><i class="bi bi-check"></i></div>
                 <div>
                     <div class="fw-bold">請填入PIN碼</div>
                     <div class="mb-3 text-start">
