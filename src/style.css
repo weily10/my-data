@@ -123,6 +123,14 @@ th {
   width: 8rem;
 }
 
+.btn-custom:disabled {
+  cursor: context-menu ;
+  pointer-events:none;
+  background-color: #aa9100;
+}
+
+ 
+
 .btn:hover {
   background-color: #154e80 !important;
 }
@@ -140,7 +148,8 @@ th {
 
 .tooltip {
   position: relative;
-   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  border-bottom: 1px dotted black;
+  /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
@@ -149,9 +158,9 @@ th {
   width: 120px;
   background-color: black;
   color: #fff;
-   padding: 5px 0;
+  padding: 5px 0;
   border-radius: 6px;
- 
+
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 30;

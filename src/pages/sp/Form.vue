@@ -35,11 +35,7 @@ onMounted(() => {
     if (route.query.filled) {
         userData.value = JSON.parse(sessionStorage.getItem("customerData"))
     }
-    console.log(sessionStorage.getItem("customerData"));
-    // if (sessionStorage.getItem("customerData")) {
-    //     userData.value = sessionStorage.getItem("customerData")
-    // }
-
+    
 
 })
 
@@ -51,16 +47,14 @@ function init() {
 }
 
 watch(sameAddrChk, (newValue) => {
-    console.log(userData.value);
-    if (newValue) {
+     if (newValue) {
         userData.value.corrAddr = userData.value.cities + ' ' + (userData.value.homeAddress ? userData.value.homeAddress : '')
     }
 })
 
 
 function spFormSend() {
-    console.log(userData.value);
-}
+ }
 
 function toMydata() {
     router.push({ name: 'SPMyData' })

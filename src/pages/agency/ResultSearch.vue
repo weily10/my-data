@@ -82,7 +82,7 @@ onMounted(() => {
 </template>
 
 
-<style>
+<style scoped>
 .table-wrap {
     min-height: 30vh;
     padding: 16px;

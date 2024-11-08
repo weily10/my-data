@@ -2,7 +2,8 @@
 import router from '../../router'
 
 const props = defineProps({
-    text: Array
+    dpsFields: Array,
+    checkedItems: Array
 })
 
 function gotoNextPage() {
@@ -29,17 +30,23 @@ function disagreeProvide() {
                 <div>本次使用的資料如下:</div>
                 <div>
                     <ol>
-                        <template v-for="(item, index) in props.text" :key="index">
-                            <li> {{ item.name }}</li>
+                        <template v-for="(item, index) in props.dpsFields" :key="index">
+                            <li> {{ item.dpName }}</li>
                             <div class="pb-3 pt-2 text-danger">
-                                {{ item.detail }}
+                                <template v-for="(item, index) in props.checkedItems" :key="index">
+                                    <div>
+                                        {{ item.fieldName }}
+                                    </div>
+                                </template>
+
                             </div>
                         </template>
                     </ol>
                 </div>
                 <div>
                     <hr>
-                    您已完成身分驗證 , 是否同意將上述資料傳給 「台灣電力公司 , 台灣自來水公司」。
+                    您已完成身分驗證 , 是否同意將上述資料傳給 「<span v-for="(item, index) in props.dpsFields" :key="index">{{ item.dpName }}
+                        <span v-if="props.dpsFields.length !== index + 1">, </span>  </span> 」。
                 </div>
             </div>
         </div>

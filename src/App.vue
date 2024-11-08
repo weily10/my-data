@@ -3,13 +3,12 @@
 import { onMounted, computed, ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router';
-// import { useStore } from './store'
-import { Toast } from 'bootstrap'
+import { useStore } from './store'
+
 import router from './router'
+import toast from './pages/components/Toast.vue'
 const route = useRoute();
-// const store = useStore()
-
-
+const store = useStore()
 
 
 const isadmin = computed(() =>
@@ -23,7 +22,7 @@ username.value = '王小明'
 
 
 function setRoleColor() {
-     if (router.currentRoute.value.path.includes('/admin') && !router.currentRoute.value.path.includes('/login')) {
+    if (router.currentRoute.value.path.includes('/admin') && !router.currentRoute.value.path.includes('/login')) {
         return 'background-color:white'
     }
 
@@ -32,7 +31,6 @@ function setRoleColor() {
     }
 
     if (router.currentRoute.value.meta.role === 'mydata') {
-        console.log('mydata');
         return 'background-color:#FFFEF5'
     }
 
@@ -46,10 +44,13 @@ function setRoleColor() {
 
 }
 
+
+
 </script>
 
 <template>
     <div class="d-flex " style="min-height: 100vh;" :style="setRoleColor()">
+         <toast></toast>
         <div v-if="isadmin">
             <nav class="nav border-end  d-flex   flex-column  p-1">
                 <h4 class="fw-bold p-3 text-white">
@@ -84,7 +85,8 @@ function setRoleColor() {
             </div>
         </div>
         <div class="w-100  ">
-             <div class="header d-flex d-flex justify-content-between  align-items-center px-3 text-white" v-if="isadmin" :style="route.meta.role === 'poc1Admin'?'background-color:#D27E00':''">
+            <div class="header d-flex d-flex justify-content-between  align-items-center px-3 text-white" v-if="isadmin"
+                :style="route.meta.role === 'poc1Admin' ? 'background-color:#D27E00' : ''">
                 <div class="text-start fs-5">
                     <span v-show="route.meta.role === 'poc1Admin'">
                         模擬受通知機關管理畫面(台灣電力公司)
@@ -92,13 +94,14 @@ function setRoleColor() {
                     <span v-show="route.meta.role === 'admin'">
                         模擬MyData服務平臺之後臺管理
                     </span>
-                    
+
                 </div>
                 <div class="p-2 text-end" v-show="route.meta.role !== 'poc1Admin'">
                     Hi, 聯經數位股份有限公司 {{ username }}
                 </div>
             </div>
             <div class="p-3">
+
                 <router-view></router-view>
             </div>
         </div>

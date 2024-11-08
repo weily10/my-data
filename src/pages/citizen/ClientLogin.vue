@@ -9,6 +9,7 @@ let passwordInput = ref(null)
 let loading = ref(false)
 let errormsg = ref(false)
 let errormessage = ref(null)
+let personUid = ref('61859183-a05d-4200-9c1c-9b291519bc15')
 
 
 const url = "/api/Account/login"
@@ -26,14 +27,16 @@ onMounted(() => {
 
 
 async function clientLogin() {
-//   await axios.post(api.value).then(res => {
-//         customerData.value = res.data
-//         sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
-//         router.push({ name: 'SPForm', query: { filled: true } })
-//      }).catch((err) => {
-//         console.log(err);
-//     })
 
+    //   await axios.post(api.value).then(res => {
+    //         customerData.value = res.data
+    //         sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
+    //         router.push({ name: 'SPForm', query: { filled: true } })
+    //      }).catch((err) => {
+    //         console.log(err);
+    //     })
+    localStorage.setItem('nationalID', usernameInput.value)
+    sessionStorage.setItem('personUid',personUid.value)
     router.push({ name: route.query.toPage })
 }
 
@@ -43,10 +46,10 @@ async function clientLogin() {
     <p class="danger text-danger  text-simulation">模擬受理異動機關畫面</p>
     <div class=" d-flex flex-column justify-content-center " style="height: 80vh;">
         <h2 class="card-title text-center">身分確認方式</h2>
-        <div class="d-flex justify-content-center mt-3" >
+        <div class="d-flex justify-content-center mt-3">
 
             <div class="">
-             
+
                 <div class="card border-0 shadow-sm" style="width:383px;">
                     <div class="card-body">
 

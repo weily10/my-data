@@ -12,8 +12,7 @@ const displayNumber = 10
 
 onMounted(() => {
     notifications.value = [{ number: '550e8400-e29b231-12221', date: '2023-11-21 10:00:00', data: ['姓名', '連絡電話'], status: '完成' }]
-    console.log('dsadas1');
-
+ 
 })
 
 function report() {
@@ -143,7 +142,7 @@ function endDateClear(){
 </template>
 
 
-<style>
+<style scoped>
 .table-wrap {
     min-height: 30vh;
     padding: 16px;

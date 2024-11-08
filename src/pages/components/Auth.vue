@@ -1,3 +1,18 @@
+
+<script setup>
+import { onMounted } from 'vue';
+
+const props = defineProps(['pin'])
+const emit = defineEmits(['updatePin'])
+
+function updateValue(e) {
+    emit('updatePin',e.target.value)
+ }
+
+onMounted(()=>{
+ })
+</script>
+
 <template>
     <div>
         <h2 class="text-center">驗證您的身分</h2>
@@ -27,9 +42,9 @@
                 <div>
                     <div class="fw-bold">請填入PIN碼</div>
                     <div class="mb-3 text-start">
-                        <label for="usernameInput" class="form-label ">PIN碼累積３次錯誤將會自動鎖卡，解鎖請洽 內政部憑證管理中心</label>
-                        <input type="text" class="form-control" id="usernameInput" v-model="usernameInput"
-                            placeholder="請填寫自然人憑證PIN碼">
+                        <label for="pin" class="form-label ">PIN碼累積３次錯誤將會自動鎖卡，解鎖請洽 內政部憑證管理中心</label>
+                        <input type="text" class="form-control" id="pin" :value="props.pin"
+                            @input="updateValue" placeholder="請填寫自然人憑證PIN碼">
                     </div>
                 </div>
             </div>
@@ -38,9 +53,5 @@
         <p class="pt-4"> 初次使用本平臺請充分閱讀以下服務條款 ,以保障您的權益與資料安全</p>
     </div>
 </template>
-
-<script setup  >
-
-</script>
 
 <style scoped></style>

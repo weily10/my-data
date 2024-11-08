@@ -1,15 +1,24 @@
 <script setup>
 import router from '../../router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 
-const nationalID = ref('')
-const bday = ref('')
+ 
+const props = defineProps(['nationalID','bday'])
+const emit = defineEmits(['onUpdateValue','updateBday'])
+
+ 
+function updateValue(e) {
+    emit('onUpdateValue',e.target.value)
+ }
 
 function gotoNextPage() {
     router.push({ name: 'Authentication' })
 }
 
+function onUpdateBday(e){
+    emit('updateBday',e.target.value)
+ }
 
 function agreeProvide() {
 
@@ -18,6 +27,8 @@ function agreeProvide() {
 function disagreeProvide() {
 
 }
+ 
+
 
 </script>
 
@@ -27,13 +38,14 @@ function disagreeProvide() {
             請填寫以下資訊
         </h5>
         <div class="mb-3 mt-4 w-50">
-            <label for="nationalID" class="form-label">身分證字號 <span class="text-danger">(必填)</span> </label>
-            <input type="email" class="form-control" id="nationalID" placeholder="英文字母為大寫" v-model="nationalID">
+             <label for="nationalID" class="form-label">身分證字號 <span class="text-danger">(必填)</span> </label>
+            <input type="" class="form-control" id="nationalID" placeholder="英文字母為大寫" :value="nationalID" :disabled="nationalID"
+                @input="updateValue">
         </div>
 
         <div class="mb-3 mt-3 w-50">
             <label for="bday" class="form-label"> 生日<span class="text-danger">(必填)</span></label>
-            <input  class="form-control" id="bday" placeholder="列: 0770101" v-model="bday">
+            <input class="form-control" id="bday" placeholder="列: 0770101" :value="bday" :disabled="bday" @input="onUpdateBday">
         </div>
 
     </div>

@@ -20,8 +20,7 @@ modulesArray.value = [{
 }]
 
 function handleClick(rowIndex, moduleIndex) {
-    console.log(modulesArray.value[moduleIndex].highlightedRow.has(rowIndex));
-    if (modulesArray.value[moduleIndex].highlightedRow.has(rowIndex)) {
+     if (modulesArray.value[moduleIndex].highlightedRow.has(rowIndex)) {
         modulesArray.value[moduleIndex].highlightedRow.delete(rowIndex)
         modulesArray.value[moduleIndex].tempArray.splice(rowIndex, 1)
 
@@ -75,8 +74,7 @@ function toUsed(moduleIndex) {
 }
 
 function toUsedAll(moduleIndex) {
-    console.log(...modulesArray.value[moduleIndex].items1);
-    modulesArray.value[moduleIndex].items2.push(...modulesArray.value[moduleIndex].items1)
+     modulesArray.value[moduleIndex].items2.push(...modulesArray.value[moduleIndex].items1)
     modulesArray.value[moduleIndex].items1 = []
     modulesArray.value[moduleIndex].tempArray = []
     modulesArray.value[moduleIndex].highlightedRow = new Set()
