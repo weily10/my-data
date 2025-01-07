@@ -23,3 +23,13 @@ test('submits the client login form and navigates to the Appliance page', async 
   // After submission, check if the page navigates to the Appliance page
   await expect(page).toHaveURL(/.*appliance/); // Make sure the URL has "Appliance"
 });
+
+
+test('inputs expected to be disabled', async ({ page }) => {
+  await page.goto('http://localhost:5173/appliance'); // Use the correct URL
+  
+  const nationalid = page.locator('input#nationalid');
+
+  await expect(nationalid).toBeDisabled()
+
+});
