@@ -11,7 +11,7 @@ test('submits the client login form and navigates to the Appliance page', async 
 
   const usernameInput = page.locator('input#usernameInput');
   const passwordInput = page.locator('input#passwordInput');
-  const submitButton = page.locator('button');
+  const submitButton = page.locator('button:has-text("登入")');
 
   // Fill out the form
   await usernameInput.fill('123456789');
