@@ -21,6 +21,8 @@
     "vue-router": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.5",
     "@vitejs/plugin-vue": "^5.1.2",
     "vite": "^5.4.0"
   }
