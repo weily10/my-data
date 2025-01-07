@@ -31,7 +31,7 @@ test('inputs expected to be disabled', async ({ page }) => {
   const nationalid = page.locator('input#nationalid');
   const pincode = page.locator('input#pincode');
 
-  await expect(nationalid).toBeDisabled()
-  await expect(pincode).toBeEnabled()
+  await expect(nationalid).toBeDisabled();
+  await expect(pincode).toBeEnabled();
 
 });
