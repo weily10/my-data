@@ -29,7 +29,9 @@ test('inputs expected to be disabled', async ({ page }) => {
   await page.goto('http://localhost:5173/appliance'); // Use the correct URL
   
   const nationalid = page.locator('input#nationalid');
+  const pincode = page.locator('input#pincode');
 
   await expect(nationalid).toBeDisabled()
+  await expect(pincode).toBeDisabled()
 
 });
