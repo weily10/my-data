@@ -51,7 +51,7 @@ jobs:
         path: playwright-report/
         retention-days: 30
   deploy:
-    timeout-minutes: 10
+    timeout-minutes: 60
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
