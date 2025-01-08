@@ -38,6 +38,7 @@ jobs:
         path: playwright-report/
         retention-days: 30
   deploy:
+    timeout-minutes: 10
     needs: build-and-test
     runs-on: ubutun-latest
     steps:
