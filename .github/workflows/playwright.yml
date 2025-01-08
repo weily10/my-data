@@ -4,6 +4,10 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
+permissions:
+  contents: write 
+
 jobs:
   build-and-test:
     timeout-minutes: 60
@@ -12,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set up Git config
       run: |
-        git config --global user.name "Weily"
+        git config --global user.name "Weily Huang"
         git config --global user.email "w3ily10@gmail.com"
     - uses: actions/setup-node@v4
       with:
