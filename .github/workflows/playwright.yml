@@ -27,7 +27,7 @@ jobs:
     - name: Build Vue 3 app
       run: npm run build
       env:
-        VITE_BASE_URL: /MyData/
+        VITE_BASE_URL: /my-data/
     - name: Debug Build Directory
       run: ls -la ./dist
     - name: Upload build artifact
