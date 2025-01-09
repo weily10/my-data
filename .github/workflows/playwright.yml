@@ -1,4 +1,5 @@
-name: Playwright Tests
+name: My data cicd
+run-name: ${{ github.actor }} testing
 on:
   push:
     branches: [ main, master ]
