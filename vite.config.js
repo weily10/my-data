@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [vue()],
-    base: "/",
+    base: env.VITE_BASE_URL || "/",
     server: {
       watch: {
         usePolling: true,
