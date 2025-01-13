@@ -4,8 +4,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-console.log('env',env)
-   return {
+    return {
     plugins: [
       vue(),
       createHtmlPlugin({
