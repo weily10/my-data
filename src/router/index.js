@@ -26,6 +26,10 @@ import Cookies from 'js-cookie'
 const routes = [
     {
         path: "/",
+        redirect:"my-data"
+    },
+    {
+        path: "/my-data",
         name: "ChoosePOC",
         component: ChoosePOC,
 
