@@ -26,7 +26,7 @@ import Cookies from 'js-cookie'
 
 const routes = [
     {
-        path: "/",
+        path: "/my-data",
         name: "ChoosePOC",
         component: ChoosePOC,
 

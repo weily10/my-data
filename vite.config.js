@@ -4,13 +4,13 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-    return {
+  return {
     plugins: [
       vue(),
       createHtmlPlugin({
         inject: {
           data: {
-            title:env.VITE_APP_TITLE || 'Default Title',
+            title: env.VITE_APP_TITLE || 'Default Title',
           },
         },
       })],
