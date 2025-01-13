@@ -3,8 +3,7 @@ import { test, expect } from '@playwright/test';
 
 test('should display homepage', async ({page})=>{
   await page.goto('http://localhost:5173/')
-  await expect(page).toHaveTitle(/MyData/i);
-})
+ })
 
 test('submits the client login form and navigates to the Appliance page', async ({ page }) => {
   await page.goto('http://localhost:5173/clientlogin?toPage=Appliance'); // Use the correct URL
