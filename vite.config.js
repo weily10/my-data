@@ -9,11 +9,11 @@ export default defineConfig({
     createHtmlPlugin({
       inject: {
         data: {
-          title: process.env.VITE_APP_TITLE || 'Default Title',
+          title: import.meta.env.VITE_APP_TITLE || 'Default Title',
         },
       },
     })],
-  base: env.VITE_APP_BASE || "/",
+  base: import.meta.env.VITE_BASE_URL || "/",
   server: {
     watch: {
       usePolling: true,
