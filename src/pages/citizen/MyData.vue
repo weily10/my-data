@@ -148,7 +148,7 @@ onMounted(() => {
 <template>
     <div class="container">
         <div>
-            <img src="../../assets/mydataicon.svg" alt="" srcset="">
+            <img src=" " alt="" srcset="">
             <span class="fs-6 fw-semibold ps-1">個人化資料自主運用(MyData)</span>
         </div>
         <div class="step-bar w-100">

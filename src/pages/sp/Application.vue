@@ -29,7 +29,7 @@ onMounted(() => {
 <template>
     <div class="container ">
         <div class="">
-            <img src="../../assets/mydataicon.svg" alt="" srcset="">
+            <img src=" " alt="" srcset="">
             <span class="fw-semibold fs-6 ps-1">個人化資料自主運用(MyData)</span>
         </div>
         <h1 class="text-center">身心障礙停車識別證申請線上申辦服務</h1>
