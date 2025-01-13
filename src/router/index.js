@@ -32,6 +32,10 @@ const routes = [
 
     },
     {
+        path: "/",
+        redirect: "/my-data",
+    },
+    {
         path: "/chooseService",
         name: "ChoosenService",
         component: ChoosenService,
@@ -62,7 +66,7 @@ const routes = [
         }
 
     },
-   
+
     {
         path: "/status",
         name: "Status",
