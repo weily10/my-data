@@ -1,36 +1,172 @@
  
 <script setup>
 import { ref, onMounted } from 'vue';
+import axios from 'axios'
+import { useStore } from '../../store'
+import { useRoute } from 'vue-router';
 
-
+const route = useRoute()
 const notifications = ref([])
 const appNumber = ref(null)
 const startDate = ref('')
 const endDate = ref('')
 const notifStatus = ref()
 const displayNumber = 10
+const store = useStore()
+const reportModels = ref([])
+
+async function getDP2Status() {
+    const dp = route.query.dp
+
+    const url = `/${dp}/api/persons/status/`
+    await axios.get(url).then(res => {
+        console.log(res);
+        notifications.value = res.data.result
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
 
 onMounted(() => {
-    notifications.value = [{ number: '550e8400-e29b231-12221', date: '2023-11-21 10:00:00', data: ['姓名', '連絡電話'], status: '完成' }]
- 
+    getDP2Status()
+    // notifications.value = [{ number: '550e8400-e29b231-12221', date: '2023-11-21 10:00:00', data: ['姓名', '連絡電話'], status: '完成' }]
+
 })
 
-function report() {
+async function update(item) {
+    const dps = route.query.dp
+    const resourceId = item.resourceId
+    const txId = item.txId
+
+    const url = `/${dps}/api/resources/sync/change/update/${txId}/${resourceId}`
+
+    await axios.put(url).then(res => {
+        getDP2Status()
+        store.toastText = '資料更新成功'
+        store.color = 'bg-success'
+        store.toast.hide()
+        setTimeout(() => {
+            store.toast.show();
+        }, 0);
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+async function getInfo(item) {
+     const dps = route.query.dp
+    const resourceId = item.resourceId
+    const txId = item.txId
+    const url = `/${dps}/api/resources/sync/change/retrieve/${txId}/${resourceId}`
+    await axios.get(url).then(res => {
+        console.log(res);
+        getDP2Status()
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+function clean(index) {
+    reportModels.value[index] = ''
+}
+
+
+async function sendReport(item, index) {
+    const dps = route.query.dp
+    const resourceId = item.resourceId
+    const txId = item.txId
+    const reqBody = {
+        targetDpId: item.targetDpId,
+        txId: txId,
+        reason: reportModels.value[index]
+    }
+
+    const url = `/${dps}/api/resources/sync/change/closed/${txId}/${resourceId}`
+
+    await axios.post(url, reqBody).then(res => {
+        console.log(res);
+        getDP2Status()
+        store.toastText = '送出回報成功'
+        store.color = 'bg-success'
+        store.toast.hide()
+        setTimeout(() => {
+            store.toast.show();
+        }, 0);
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+// function startDateClear() {
+//     startDate.value = ""
+// }
+
+// function endDateClear() {
+//     endDate.value = ""
+// }
+
+function formatDate(dt) {
+    const date = new Date(dt)
+    return date.toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })
+}
+
+function formatStatus(data) {
+    if (!data) {
+        return '無狀態'
+    }
+    if (['0', '1', '2', '3'].includes(data)) {
+        return '正常'
+    }
+
+    if (['Z'].includes(data)) {
+        return '異常'
+    }
+
+    if (['9'].includes(data)) {
+        return '結案'
+    }
+
+}
+
+function formatColor(data) {
+    if (['0', '1', '2', '3'].includes(data)) {
+        return 'bg-success'
+    }
+
+    if (['Z'].includes(data)) {
+        return 'bg-danger'
+    }
+
+    if (!data) {
+        return 'bg-body-secondary text-secondary'
+    }
+
+    if (['9'].includes(data)) {
+        return 'bg-secondary'
+    }
+}
+
+
+function dpChoose(item,source) {
+    if (source.sourceDpId == 'dp4') {
+
+        if (item == '姓名') {
+            return '公司名稱'
+        }
+
+        if (item == '戶籍地址') {
+            return '公司所在地'
+        }
+    } else {
+        return item
+    }
 
 }
 
 
-function searchNotif() {
 
-}
-
-function startDateClear() {
-    startDate.value = ""
-}
-
-function endDateClear(){
-    endDate.value = ""
-}
 
 
 </script>
@@ -38,39 +174,7 @@ function endDateClear(){
 <template>
     <div>
         <h1>跨機關異動通報</h1>
-        <div class="border p-3 mt-3">
-            <h6 class="fw-bold">查詢條件</h6>
-            <div class="d-flex gap-3 align-items-end   flex-wrap">
-                <div class="mt-3" style="width: 15rem;">
-                    <label for="number" class="form-label">申請單號</label>
-                    <input class="form-control" id="appNumber" v-model="appNumber">
-                </div>
-                <div class="mt-3  flex-wrap" style="width: 30rem;">
-                    <label for=" " class="form-label">查詢時間區間</label>
-                    <div class="d-flex align-items-center">
-                        <VueDatePicker v-model="startDate" placeholder="初始日期"   text-input
-                            auto-apply :format-locale="zhTW" @cleared="startDateClear"></VueDatePicker>
-                        <span class="px-2">~</span>
 
-                        <VueDatePicker v-model="endDate" placeholder="結束日期"  text-input
-                            auto-apply :format-locale="zhTW" @cleared="endDateClear"></VueDatePicker>
-                    </div>
-                </div>
-
-                <div class="mt-3" style="width: 15rem;">
-                    <label for="exampleFormControlInput1" class="form-label">狀態</label>
-                    <select class="form-select" aria-label="Default select example" v-model="notifStatus">
-                        <option selected>處理中</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary" style="width: 100px ;" @click="searchNotif">查詢</button>
-                </div>
-            </div>
-        </div>
         <div class="border mt-3 p-3 ">
             <div class="d-flex justify-content-between">
                 <h5>跨機關異動通報列表</h5>
@@ -101,21 +205,47 @@ function endDateClear(){
                     <tbody>
                         <template v-for="(item2, index) in notifications" :key="index">
                             <tr>
-                                <td class="align-middle">{{ item2.number }}</td>
-                                <td class="text-center align-middle">{{ item2.date }}</td>
+                                <td class="align-middle">{{ item2.formNo }}</td>
+                                <td class="text-center align-middle" style="min-width: 5rem;">{{
+                                    formatDate(item2.createdDate) }}</td>
                                 <td class="text-center align-middle">
-                                    <div v-for="(item, index) in item2.data" :key="index">
-                                        {{ item }}
+
+                                    <div v-for="(item, index) in item2.fields" :key="index">
+                                        <div>
+                                            {{ dpChoose(item,item2) }}
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="text-center align-middle">
-                                    <span class="badge bg-success">
-                                        {{ item2.status }}</span>
-
+                                <td class="text-center align-middle ">
+                                    <span class="badge" :class="formatColor(item2.status)"> {{ formatStatus(item2.status)
+                                    }}</span>
                                 </td>
-                                <td class="text-end align-middle" style="width:5em">
-                                    <button class="btn bg-primary text-white " style="width: 5em;"
-                                        @click="report">回報</button>
+                                <td class="text-end align-middle" style="min-width: 5rem;">
+                                    <div class="d-flex gap-2 justify-content-end flex-wrap">
+                                        <button class="btn bg-primary text-white " style="width: 5em;"
+                                            v-show="item2.fields && item2.status !== 'Z'"
+                                            @click="update(item2)">已更新</button>
+                                        <div class="dropdown">
+                                            <a class="btn bg-primary text-white" href="#" role="button" style="width: 5em;"
+                                                data-bs-toggle="dropdown" aria-expanded="false" @click="clean(index)">
+                                                回報
+                                            </a>
+
+                                            <div class="dropdown-menu" style="width: 20rem;">
+                                                <div class="p-3">
+                                                    <label for="usernameInput" class="form-label ">通報資訊</label>
+                                                    <input type="text" class="form-control" id="usernameInput"
+                                                        v-model="reportModels[index]" placeholder="">
+                                                    <div class="text-end mt-3">
+                                                        <button class="btn bg-primary text-white " style="width: 5em;"
+                                                            @click="sendReport(item2, index)">送出</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </td>
                             </tr>
                         </template>
@@ -125,7 +255,7 @@ function endDateClear(){
             </div>
             <div class="d-flex justify-content-between mt-3">
                 <div>
-                    共 {{ notifications.length }} 筆
+                    顯示1到10共 {{ notifications.length }} 筆
                 </div>
                 <nav>
                     <ul class="pagination">

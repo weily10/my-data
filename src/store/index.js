@@ -9,6 +9,8 @@ export const useStore = defineStore('myStore', () => {
     const toast = ref(false)
     const toastText = ref('資料更新成功!')
     const color = ref('bg-success')
+    const dpName = ref('內政部戶政司')
+    const dp = ref('dp1')
 
     function setInfo(variable) {
         information.value = variable
@@ -26,6 +28,6 @@ export const useStore = defineStore('myStore', () => {
         dps.value = dp
     }
 
-    return { information, setInfo, setDps, toast, setText,toastText,color,setColor }
+    return { information, setInfo, setDps, toast, setText, toastText, color, setColor, dpName,dp }
 
 })

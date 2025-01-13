@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../pages/backstage/Login.vue'
+ import Login from '../pages/backstage/Login.vue'
 import SearchStatus from '../pages/backstage/SearchStatus.vue'
 import DetailPage from '../pages/backstage/DetailPage.vue'
 import ChoosenService from '../pages/citizen/ChooseService.vue'
@@ -15,25 +15,20 @@ import SPMyData from '../pages/sp/MyData.vue'
 import MyData from '../pages/citizen/MyData.vue'
 import SPAGreement from '../pages/sp/Agreement.vue'
 import ChoosePOC from '../pages/ChoosePOC.vue'
-import SearchCustomerData from '../pages/agency/SearchCustomerData.vue'
-import ResultSearch from '../pages/agency/ResultSearch.vue'
-import AgencyManage from '../pages/backstage/AgencyManage.vue'
-
-
+  import AgencyManage from '../pages/backstage/AgencyManage.vue'
+import Application from '../pages/sp/Application.vue'
+import ChooseAgency from '../pages/agency/ChooseAgency.vue'
 
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+
 const routes = [
     {
-        path: "/my-data",
+        path: "/",
         name: "ChoosePOC",
         component: ChoosePOC,
 
-    },
-    {
-        path: "/",
-        redirect: "/my-data",
     },
     {
         path: "/chooseService",
@@ -66,7 +61,6 @@ const routes = [
         }
 
     },
-
     {
         path: "/status",
         name: "Status",
@@ -137,6 +131,15 @@ const routes = [
         }
     },
     {
+        path: "/sp-application",
+        name: "Application",
+        component: Application,
+        meta: {
+            role: 'sp'
+        }
+
+    },
+    {
         path: "/sp-mydata",
         name: "SPMyData",
         component: SPMyData,
@@ -152,16 +155,7 @@ const routes = [
             role: 'sp'
         }
     },
-    {
-        path: "/search-customer-data",
-        name: "SearchCustomerData",
-        component: SearchCustomerData,
-    },
-    {
-        path: "/result-search",
-        name: "ResultSearch",
-        component: ResultSearch,
-    },
+     
     {
         path: "/admin/agencyManage",
         name: "AgencyManage",
@@ -170,6 +164,15 @@ const routes = [
             role: 'poc1Admin'
         }
     },
+
+    {
+        path: "/ChooseAgency",
+        name: "ChooseAgency",
+        component: ChooseAgency,
+
+    }
+
+
 
 ]
 
@@ -181,17 +184,6 @@ const adminRouter = createRouter({
 
 
 
-// router.beforeEach((to, from, next) => {
-
-//     const isAuth = Cookies.get('UdnAiPlatform_Judge')
-//     // document.title = to.meta.title;
-//     if (to.meta.auth && !isAuth) {
-//         next('/login')
-//     } else {
-//         next()
-//     }
-
-// })
-
+ 
 
 export default adminRouter

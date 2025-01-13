@@ -3,16 +3,20 @@ import router from '../../router'
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { Toast } from 'bootstrap'
+ import { useStore } from '../../store';
 
-let usernameInput = ref(null)
-let passwordInput = ref(null)
+let uid = ref(null)
+let pin = ref(null)
 let loading = ref(false)
 let errormsg = ref(false)
 let errormessage = ref(null)
-let personUid = ref('61859183-a05d-4200-9c1c-9b291519bc15')
+let personUid = ref(null)
+const store = useStore()
+const dps = ref('dp1')
 
+const customerData = ref({})
 
-const url = "/api/Account/login"
 const route = useRoute()
 
 async function login() {
@@ -20,51 +24,111 @@ async function login() {
 }
 
 onMounted(() => {
-
+    dps.value = sessionStorage.getItem('dp')
     console.log(route.query.toPage);
 })
 
 
 
 async function clientLogin() {
+    const url = `/${dps.value}/api/persons/verifyCert`
+    const requestBody = {
+        uid: uid.value,
+        birthdate: ''
+    }
+    await axios.post(url, requestBody).then(res => {
+        if (!res.data.success) {
+            errormsg.value.show()
+            errormessage.value = res.data.result
+        } else {
+            localStorage.setItem('dps', dps.value)
+            const txId = res.data.txId
+            personUid.value = res.data.personUid
+            localStorage.setItem('nationalID', uid.value)
+            sessionStorage.setItem('personUid', personUid.value)
+            sessionStorage.setItem('pin', pin.value)
+            verify(txId, dps.value)
+            if (route.query.toPage !== 'Status') {
+                customerData.value = res.data
+                sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
+            }
+        }
 
-    //   await axios.post(api.value).then(res => {
-    //         customerData.value = res.data
-    //         sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
-    //         router.push({ name: 'SPForm', query: { filled: true } })
-    //      }).catch((err) => {
-    //         console.log(err);
-    //     })
-    localStorage.setItem('nationalID', usernameInput.value)
-    sessionStorage.setItem('personUid',personUid.value)
-    router.push({ name: route.query.toPage })
+    }).catch((err) => {
+        console.log(err);
+        errormsg.value.show()
+        errormessage.value = "server 有異常"
+    })
+
 }
+
+onMounted(() => {
+    errormsg.value = new Toast(document.getElementById('errormsg'));
+
+})
+
+
+function verify(txId, dp) {
+     
+
+}
+
 
 </script>
 
 <template>
-    <p class="danger text-danger  text-simulation">模擬受理異動機關畫面</p>
-    <div class=" d-flex flex-column justify-content-center " style="height: 80vh;">
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-outline-primary btn-sm  mt-4 " @click="router.push({ path: '/' })">
+            回首頁</button>
+    </div>
+    <div class=" d-flex flex-column justify-content-center mt-5">
         <h2 class="card-title text-center">身分確認方式</h2>
         <div class="d-flex justify-content-center mt-3">
-
             <div class="">
-
                 <div class="card border-0 shadow-sm" style="width:383px;">
+                    <h5 class="text-center fw-semibold" v-show="store.dp == 'dp4'">工商憑證</h5>
                     <div class="card-body">
 
                         <div class="mb-3  text-start">
-                            <label for="usernameInput" class="form-label ">國民身分證統一編號</label>
-                            <input type="text" class="form-control" id="usernameInput" v-model="usernameInput"
-                                placeholder="name@example.com">
+                            <label for="uid" class="form-label " v-show="store.dp == 'dp1'">國民身分證統一編號</label>
+                            <label for="uid" class="form-label " v-show="store.dp == 'dp4'">統一編號</label>
+                            <input type="text" class="form-control" id="uid" v-model="uid" placeholder="如:T236632934">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="passwordInput" class="form-label">自然人憑證IC卡密碼﹝PIN Code﹞</label>
-                            <input type="password" class="form-control" id="passwordInput" v-model="passwordInput"
-                                placeholder=" ">
+                            <label for="pin" class="form-label" v-show="store.dp == 'dp4'">工商憑證IC卡密碼﹝PIN Code﹞</label>
+                            <label for="pin" class="form-label" v-show="store.dp == 'dp1'">自然人憑證IC卡密碼﹝PIN
+                                Code﹞</label>
+                            <input type="password" class="form-control" id="pin" v-model="pin" placeholder=" ">
                         </div>
+                        <!-- <div>
+                            <label for="pin" class="form-label">選單位</label>
+                        </div> -->
+                        <!-- <div class="mb-3 d-flex flex-column gap-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="dp1" v-model="dps"
+                                    value="dp1" checked>
+                                <label class="form-check-label" for="dp1">
+                                    內政部戶政司
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="dp2" v-model="dps"
+                                    value="dp2">
+                                <label class="form-check-label" for="dp2">
+                                    台灣自來水公司
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="dp3" v-model="dps"
+                                    value="dp3">
+                                <label class="form-check-label" for="dp3">
+                                    台灣電力公司
+                                </label>
+                            </div>
+                           
+                        </div> -->
                         <div class="mt-4">
-                            <button :disabled="loading || !usernameInput || !passwordInput"
+                            <button :disabled="loading || !uid || !pin"
                                 class="btn btn-primary w-100 d-flex gap-2 align-items-center justify-content-center bg-primary"
                                 @click="clientLogin">
                                 <div>登入</div>
@@ -77,6 +141,7 @@ async function clientLogin() {
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -95,5 +160,9 @@ async function clientLogin() {
 </template> 
 
 <style scoped>
+.btn:hover {
+    color: white !important;
+}
+
 .wrapper {}
 </style>

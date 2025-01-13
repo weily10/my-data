@@ -1,26 +1,40 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import router from '../../router';
+import axios from 'axios'
 
 const list = ref([])
 
-list.value = [{
-    agency: "內政部",
-    number: 8,
-    notifyTime: '2024-7-01 10:00:00',
-    status: '正常',
-},
-{
-    agency: "監理站",
-    number: 2,
-    notifyTime: '2024-7-01 10:00:00',
-    status: '異常',
-}]
-
-
-function goToDetail() {
-    router.push({ name: 'DetailPage' })
+function goToDetail(dpId) {
+    console.log(dpId);
+    router.push({ name: 'DetailPage', query: { dpId: dpId } })
 }
+
+onMounted(() => {
+    getList()
+})
+
+function formatDate(dt) {
+     const date = new Date(dt)
+    if (dt) {
+        return date.toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })
+    } else {
+        return '-'
+    }
+
+}
+
+async function getList() {
+
+    const url = `/api/dp/sync/dps`
+    await axios.get(url).then(res => {
+        list.value = res.data.result
+        console.log(res.data.result);
+    })
+
+}
+
+
 
 </script>
 
@@ -42,14 +56,14 @@ function goToDetail() {
                 <tbody>
                     <template v-for="(item, index) in list" :key="index">
                         <tr>
-                            <td class="align-middle">{{ item.agency }}</td>
-                            <td class="text-end align-middle">{{ item.number }}</td>
-                            <td class="text-center align-middle">{{ item.notifyTime }}</td>
+                            <td class="align-middle">{{ item.dpName }}</td>
+                            <td class="text-end align-middle">{{ item.targetDpCount }}</td>
+                            <td class="text-center align-middle">{{ formatDate(item.createdDate) }}</td>
                             <td class="text-center align-middle">
-                                {{ item.status }}
+                                正常
                             </td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-primary" @click="goToDetail()">詳細</button>
+                                <button type="button" class="btn btn-primary" @click="goToDetail(item.dpId)">詳細</button>
                             </td>
                         </tr>
                     </template>
