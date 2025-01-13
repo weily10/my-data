@@ -12,7 +12,7 @@ export default defineConfig({
         },
       },
     })],
-  base: env.VITE_BASE_URL || "/",
+  base: env.VITE_APP_BASE || "/",
   server: {
     watch: {
       usePolling: true,
