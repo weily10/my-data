@@ -27,7 +27,7 @@ test('submits the client login form and navigates to the Appliance page', async 
 test('inputs expected to be disabled', async ({ page }) => {
   await page.goto('http://localhost:5173/appliance'); // Use the correct URL
   
-  const nationalid = page.locator('input#nationalid');
+  const nationalid = page.locator('input#uid');
   const pincode = page.locator('input#pincode');
   const region = page.locator('input#region')
 
