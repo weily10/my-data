@@ -20,16 +20,21 @@ function toNextPage() {
 
 async function getPersonsInfo() {
     if (localStorage.getItem('dps')) {
-        const dps = localStorage.getItem('dps')
-        personUid.value = sessionStorage.getItem("personUid")
-        url.value = `/${dps}/api/persons/${personUid.value}`
-        await axios.get(url.value).then((res) => {
-             applianceData.value = res.data.result
-            pincode.value = sessionStorage.getItem('pin')
-            store.setInfo(applianceData.value)
+        applianceData.value = {
+            personId:'1323123123',
+             houseAddr:'台北市'
+        }
+        pincode.value = sessionStorage.getItem('pin')
+        // const dps = localStorage.getItem('dps')
+        // personUid.value = sessionStorage.getItem("personUid")
+        // url.value = `/${dps}/api/persons/${personUid.value}`
+        // await axios.get(url.value).then((res) => {
+        //      applianceData.value = res.data.result
+        //     pincode.value = sessionStorage.getItem('pin')
+        //     store.setInfo(applianceData.value)
 
-            localStorage.setItem('bday', applianceData.value.birthDate)
-        })
+        //     localStorage.setItem('bday', applianceData.value.birthDate)
+        // })
     }
 
 }

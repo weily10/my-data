@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory  } from 'vue-router'
  import Login from '../pages/backstage/Login.vue'
 import SearchStatus from '../pages/backstage/SearchStatus.vue'
 import DetailPage from '../pages/backstage/DetailPage.vue'
@@ -37,7 +37,7 @@ const routes = [
     {
         path: "/chooseService",
         name: "ChoosenService",
-        component: ChoosenService,
+        component: () => import('../pages/citizen/ChooseService.vue'),
 
     },
     {
@@ -180,7 +180,7 @@ const routes = [
 
 ]
 
-const history = createWebHistory();
+const history = createWebHashHistory ();
 const adminRouter = createRouter({
     history,
     routes
