@@ -8,8 +8,8 @@ test('should display homepage', async ({page})=>{
 test('submits the client login form and navigates to the Appliance page', async ({ page }) => {
   await page.goto('http://localhost:5173/clientlogin?toPage=Appliance'); // Use the correct URL
 
-  const usernameInput = page.locator('input#usernameInput');
-  const passwordInput = page.locator('input#passwordInput');
+  const usernameInput = page.locator('input#uid');
+  const passwordInput = page.locator('input#pin');
   const submitButton = page.locator('button:has-text("登入")');
 
   // Fill out the form
