@@ -1,5 +1,5 @@
 name: My data cicd
-run-name: ${{ github.actor }} testing
+run-name: ${{ github.actor }} testing & deploy
 on:
   push:
     branches: [main, master]
@@ -48,7 +48,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --workers=4
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:

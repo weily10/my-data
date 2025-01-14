@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { Toast } from 'bootstrap'
- import { useStore } from '../../store';
+import { useStore } from '../../store';
 
 let uid = ref(null)
 let pin = ref(null)
@@ -31,20 +31,20 @@ onMounted(() => {
 
 
 async function clientLogin() {
-   
-            localStorage.setItem('dps', dps.value)
-            const txId = '123142'
-            personUid.value = '123123312312'
-            localStorage.setItem('nationalID', uid.value)
-            sessionStorage.setItem('personUid', personUid.value)
-            sessionStorage.setItem('pin', pin.value)
-            verify(txId, dps.value)
-            if (route.query.toPage !== 'Status') {
-                customerData.value = res.data
-                sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
-            }
-      
- 
+
+    localStorage.setItem('dps', dps.value)
+    const txId = '123142'
+    personUid.value = '123123312312'
+    localStorage.setItem('nationalID', uid.value)
+    sessionStorage.setItem('personUid', personUid.value)
+    sessionStorage.setItem('pin', pin.value)
+    verify(txId, dps.value)
+    if (route.query.toPage !== 'Status') {
+        // customerData.value = res.data
+        sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
+    }
+
+
 
 }
 
@@ -55,7 +55,19 @@ onMounted(() => {
 
 
 function verify(txId, dp) {
-     
+    loading.value = true
+    store.toastText = '讀卡成功!!'
+    store.setColor('bg-success')
+    store.toast.hide()
+    setTimeout(() => {
+        store.toast.show();
+        if (route.query.toPage === 'Status') {
+            router.push({ path: '/status', query: { txId: txId, dp: dp } })
+        } else {
+            router.push({ name: route.query.toPage })
+        }
+    }, 0);
+    loading.value = false
 
 }
 
