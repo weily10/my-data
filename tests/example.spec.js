@@ -29,8 +29,13 @@ test('inputs expected to be disabled', async ({ page }) => {
   
   const nationalid = page.locator('input#nationalid');
   const pincode = page.locator('input#pincode');
+  const region = page.locator('input#region')
+
   console.log('Checking if nationalid is disabled...');
   await expect(nationalid).toBeDisabled();
   await expect(pincode).toBeDisabled();
+  await expect(nationalid).toContainText(/\S+/)
+  await expect(pincode).toContainText(/\S+/)
+  await expect(region).toContainText(/\S+/)
 
 });
