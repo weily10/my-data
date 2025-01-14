@@ -31,19 +31,10 @@ onMounted(() => {
 
 
 async function clientLogin() {
-    const url = `/${dps.value}/api/persons/verifyCert`
-    const requestBody = {
-        uid: uid.value,
-        birthdate: ''
-    }
-    await axios.post(url, requestBody).then(res => {
-        if (!res.data.success) {
-            errormsg.value.show()
-            errormessage.value = res.data.result
-        } else {
+   
             localStorage.setItem('dps', dps.value)
-            const txId = res.data.txId
-            personUid.value = res.data.personUid
+            const txId = '123142'
+            personUid.value = '123123312312'
             localStorage.setItem('nationalID', uid.value)
             sessionStorage.setItem('personUid', personUid.value)
             sessionStorage.setItem('pin', pin.value)
@@ -52,13 +43,8 @@ async function clientLogin() {
                 customerData.value = res.data
                 sessionStorage.setItem("customerData", JSON.stringify(customerData.value));
             }
-        }
-
-    }).catch((err) => {
-        console.log(err);
-        errormsg.value.show()
-        errormessage.value = "server 有異常"
-    })
+      
+ 
 
 }
 

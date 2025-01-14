@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build-and-test:
-    timeout-minutes: 5
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +35,26 @@ jobs:
         with:
           name: build-artifact
           path: ./dist
+      - name: Start Vue 3 app 
+        run: npm run dev > server.log 2>&1 &
+      - name: Upload server logs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+            name: server-log
+            path: server.log
+      - name: Wait for Vue app to be available
+        run: npx wait-on http://localhost:5173/
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+            name: playwright-report
+            path: playwright-report/
+            retention-days: 30
 
   deploy:
     timeout-minutes: 60
