@@ -34,10 +34,8 @@ test('inputs expected to be disabled', async ({ page }) => {
   console.log('Checking if nationalid is disabled...');
   await expect(nationalid).toBeDisabled();
   await expect(pincode).toBeDisabled();
- const nationalIdCont = await nationalid.textContent()
- console.log(nationalIdCont);
- expect(nationalIdCont).not.toBe('');
-  await expect(pincode).toContainText(/\S+/)
-  await expect(region).toContainText(/\S+/)
+  await expect(nationalid).toHaveValue(/\S+/)
+  await expect(pincode).toHaveValue(/\S+/)
+  await expect(region).toHaveValue(/\S+/)
 
 });
