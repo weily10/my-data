@@ -3,12 +3,13 @@ import { test, expect } from '@playwright/test';
 
 test('should display homepage', async ({ page }) => {
   await page.goto('http://localhost:5173/my-data')
+  console.log('should display homepage...');
 })
 
 test('should display chooseservice page', async ({ page }) => {
   await page.goto('http://localhost:5173/chooseService?dp=dp1'); // Use the correct URL
 
-
+  console.log('should display chooseservice page');
   const gotoserviceBtn = page.locator('button#gotoservice')
 
 
