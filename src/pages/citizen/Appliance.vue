@@ -103,7 +103,7 @@ onMounted(() => {
                 <div v-show="store.dp == 'dp1'">
                     <p class="fw-bold mt-1"> 通訊地址</p>
                     <div class="mb-3 ">
-                        <input class="form-control" id="region" v-model="applianceData.contactAddr" placeholder=""
+                        <input class="form-control" id="regionCheckBox" v-model="applianceData.contactAddr" placeholder=""
                             :disabled="ischecked">
                     </div>
                     <div class="form-check">

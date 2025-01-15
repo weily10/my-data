@@ -4,10 +4,10 @@ import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue'
 
 
-const route =  useRoute()
+const route = useRoute()
 
 onMounted(() => {
- })
+})
 </script>
 
 <template>
@@ -19,13 +19,13 @@ onMounted(() => {
       </div>
       <div class="d-flex justify-content-center align-items-center gap-5 h-100 mt-5">
 
-         <div class="btn-big   card justify-content-center fs-4 px-1  d-flex align-items-center "
+         <button id="gotoservice" class="btn-big   card justify-content-center fs-4 px-1  d-flex align-items-center "
             @click="router.push({ path: '/clientlogin', query: { toPage: 'Appliance', dp: route.query.dp } })">
             <span>申請跨機關異動通知服務​</span>
-         </div>
-         <div class="btn-big  card justify-content-center fs-4 px-1  d-flex align-items-center"
+         </button>
+         <button class="btn-big  card justify-content-center fs-4 px-1  d-flex align-items-center"
             @click="router.push({ path: '/clientlogin', query: { toPage: 'Status', dp: route.query.dp } })">
-            查詢資料異動通知狀態​</div>
+            查詢資料異動通知狀態​</button>
       </div>
    </div>
 </template>
