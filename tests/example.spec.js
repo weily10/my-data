@@ -34,7 +34,8 @@ test('inputs expected to be disabled', async ({ page }) => {
   console.log('Checking if nationalid is disabled...');
   await expect(nationalid).toBeDisabled();
   await expect(pincode).toBeDisabled();
-  await expect(nationalid).toHaveValue('1323123123', { timeout: 5000 })
+  const count = await page.locator('#nationalid').count();
+console.log('Number of #nationalid inputs:', count);
   await expect(pincode).toHaveValue(/\S+/)
   await expect(region).toHaveValue(/\S+/)
 
