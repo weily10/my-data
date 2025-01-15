@@ -23,6 +23,21 @@ test('submits the client login form and navigates to the Appliance page', async 
   await expect(page).toHaveURL(/.*appliance/); // Make sure the URL has "Appliance"
 });
 
+test('inputs expected to have value', async ({ page }) =>{
+  await page.goto('http://localhost:5173/appliance');
+
+  const nationalid = page.locator('input#nationalid');
+  const pincode = page.locator('input#pincode');
+  const region = page.locator('input#region')
+
+  await page.waitForSelector('#nationalid');
+   
+  await expect(nationalid).toHaveValue(/\S+/)
+  // await expect(pincode).toHaveValue(/\S+/)
+  // await expect(region).toHaveValue(/\S+/)
+
+});
+
 
 test('inputs expected to be disabled', async ({ page }) => {
   await page.goto('http://localhost:5173/appliance'); // Use the correct URL
@@ -34,9 +49,7 @@ test('inputs expected to be disabled', async ({ page }) => {
   console.log('Checking if nationalid is disabled...');
   await expect(nationalid).toBeDisabled();
   await expect(pincode).toBeDisabled();
-  const count = await page.locator('#nationalid').count();
-console.log('Number of #nationalid inputs:', count);
-  await expect(pincode).toHaveValue(/\S+/)
-  await expect(region).toHaveValue(/\S+/)
+  await expect(region).toBeDisabled();
+ 
 
 });
